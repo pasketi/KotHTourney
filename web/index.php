@@ -57,7 +57,7 @@
 	<span>Your tournament password again *:</span> <input type="password" name="passwdCheck" required>
 	</label>
 	<p>Fields marked with a * are required</p>
-    <div class="g-recaptcha" data-sitekey="6LeHxi8UAAAAAL7017VTiam5iT8TJ47Tl9leOEnn"></div>
+    <div class="g-recaptcha" data-sitekey="6LeHxi8UAAAAAL7017VTiam5iT8TJ47Tl9leOEnn" data-theme="dark"></div>
     <input type="submit">
   </form>
 </body>
