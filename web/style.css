@@ -1,0 +1,131 @@
+/*
+ CSS stylesheet for KOTH Tournament web tool
+ Author: Henri Ikonen
+ Version: 1.0.0
+*/
+
+
+/*Color scheme:
+ * #96BAC3 Very Light blue, text
+ * #53B3C9 Highlight Blue, Highlight areas
+ * #219AB6 Base color blue, Headers 
+ * #0D3C47 Dark Blue 1, Form background
+ * #08252B Dark Blue 2, Site Background
+*/
+
+/* Table of contents */
+/*
+ * 0 Imports
+ * 1 Body & Text
+ * 2 Form Styling
+ * 3 Div Styling
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+/* 0 Imports */
+
+@import url('https://fonts.googleapis.com/css?family=Maven+Pro:700|Titillium+Web:300');
+
+/* 1 Body & Text */
+
+body {
+    background-color: #08252B;
+    font-family: 'Titillium Web', sans-serif;
+    color: #96BAC3;
+    margin: 50px auto;
+    width: 1000px;
+}
+
+h1,h2,h3 {
+    font-family: 'Maven Pro', sans-serif;
+    color: #219AB6;
+}
+
+.subtext {
+    display: inline-block;
+    color: #219AB6;
+    max-width: 400px;
+    white-space: nowrap;
+    margin-left: 20px;
+    background-color: #0f0f10;
+    position: absolute;
+    padding: 0px 10px;
+    border-radius: 6px;
+    top: -3px;
+}
+
+.subtext:before {
+    content: "";
+    display: inline;
+    width: 0;
+	height: 0;
+	border-top: 6px solid transparent;
+	border-right: 15px solid #0f0f10;
+	border-bottom: 6px solid transparent;
+    position: absolute;
+    left: -15px;
+    top: 10px;
+}
+
+/* 2 Form Styling */
+
+Form {
+    
+    border: 2px solid #0D3C47;
+    border-radius: 8px;
+    padding: 20px 20px;
+    
+}
+
+input[type=text], input[type=email], input[type=password] {
+    font-family: 'Maven Pro', sans-serif;
+    border: 1px solid #0D3C47;
+    border-radius: 0px;
+    background-color: #0D3C47;
+    color: #219AB6;
+    display: inline-block;
+    margin-bottom: 20px;
+    padding-left: 2px;
+    outline: none;
+}
+
+label {
+    position:relative;
+}
+
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus{
+   border: 1px solid #219AB6;
+}
+
+form span{
+    display: block;
+}
+
+input[type=submit] {
+    
+    font-family: 'Maven Pro', sans-serif;
+    border: 2px solid #53B3C9;
+    border-radius: 0px;
+    background-color: #0D3C47;
+    color: #219AB6;
+    padding: 10px 20px 10px;
+    margin-top: 20px;
+}
+
+input[type=submit]:hover {
+    background-color: #219AB6;
+    color:#0D3C47;
+}
+
+input[name=newTournament] {
+    
+}
+
+/* 3 Div Styling */
