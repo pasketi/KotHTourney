@@ -47,11 +47,11 @@
     </label>
 	<label for="TournamentID">
 	<span>Your personal tournament ID:</span> <input type="text" name="ownId" maxlength="20">
-	<sub class="subtext">You will find your tournament with an ID. If you leave the tournament<br/>ID empty, you will get a generated, unique 10 digit ID.</sub>
+	<sub class="css-subtext">You will find your tournament with an ID. If you leave the tournament<br/>ID empty, you will get a generated, unique 10 digit ID.</sub>
 	</label>
 	<label for="Password">
 	<span>Your tournament password *:</span> <input type="password" name="passwd" required>
-	<sub class="subtext">You will use this password to manage your tournament.<br/>Share it only with your moderators!</sub>
+	<sub class="css-subtext">You will use this password to manage your tournament.<br/>Share it only with your moderators!</sub>
 	</label>
 	<label for ="PasswordAgain">
 	<span>Your tournament password again *:</span> <input type="password" name="passwdCheck" required>

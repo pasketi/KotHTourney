@@ -243,12 +243,12 @@ class Tournament {
 
 	function GetTournamentHTML() {
 		$string = "";
-		$string .= "<p>Share-link: http://url.fi/tournamentPage.php?id=".$this->id."</p>";
+		$string .= "<p class='css-share'>Share-link:</p> <p class='css-link'>http://url.fi/tournamentPage.php?id=".$this->id."</p>";
 		$string .= "<h1>".$this->name."</h1>";
-		$string .= "<h2>Admin: ".$this->ownerName."</h2>";
+		$string .= "<h3>Admin: ".$this->ownerName."</h3>";
 		$string .= "<h3>Admin contact: ".$this->ownerEmail."</h3>";
 		$string .= "<p>".$this->description."</p>";
-		$string .= "<h1>Reigning champion<br />".$this->currentChampion."</h1>";
+		$string .= "<h1>Reigning champion:</h1><h2>".$this->currentChampion."</h2>";
 		$string .= "List of fallen foes<br /><ul>";
 		foreach ($this->destroyedOpponents as &$player) {
 			if ($player == $this->destroyedOpponents[0]) {

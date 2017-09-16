@@ -4,13 +4,13 @@
  Version: 1.0.0
 */
 
-
 /*Color scheme:
  * #96BAC3 Very Light blue, text
  * #53B3C9 Highlight Blue, Highlight areas
  * #219AB6 Base color blue, Headers 
- * #0D3C47 Dark Blue 1, Form background
- * #08252B Dark Blue 2, Site Background
+ * #0D3C47 Dark Blue 1 Form background
+ * #08252B Dark Blue 2 
+ * #191919 Dark Grey, Site Background
 */
 
 /* Table of contents */
@@ -19,14 +19,7 @@
  * 1 Body & Text
  * 2 Form Styling
  * 3 Div Styling
- *
- *
- *
- *
- *
- *
- *
- *
+ * 4 Tournament Page Styling
  */
 
 /* 0 Imports */
@@ -36,7 +29,7 @@
 /* 1 Body & Text */
 
 body {
-    background-color: #08252B;
+    background-color: #191919;
     font-family: 'Titillium Web', sans-serif;
     color: #96BAC3;
     margin: 50px auto;
@@ -74,6 +67,18 @@ h1,h2,h3 {
     top: 10px;
 }
 
+.css-share {
+    font-size: 80%;
+    margin-bottom: 0px;
+}
+
+.css-link {
+    color:#219AB6;
+    border:2px solid #219AB6;
+    padding: 5px 10px;
+    margin-top: 0px;
+}
+
 /* 2 Form Styling */
 
 Form {
@@ -109,7 +114,6 @@ form span{
 }
 
 input[type=submit] {
-    
     font-family: 'Maven Pro', sans-serif;
     border: 2px solid #53B3C9;
     border-radius: 0px;
@@ -129,3 +133,5 @@ input[name=newTournament] {
 }
 
 /* 3 Div Styling */
+
+/* 4 Tournament Page Styling */

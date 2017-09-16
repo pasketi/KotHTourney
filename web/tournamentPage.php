@@ -7,7 +7,7 @@
   <title>King of the Hill</title>
   <meta name="description" content="KotH manager">
   <meta name="author" content="Panu 'Pasketi' Siitonen">
-
+	<style><?php include "style.css";?></style>
 </head>
 
 <body>
