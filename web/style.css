@@ -41,7 +41,7 @@ h1,h2,h3 {
     color: #219AB6;
 }
 
-.subtext {
+.css-subtext {
     display: inline-block;
     color: #219AB6;
     max-width: 400px;
@@ -54,7 +54,7 @@ h1,h2,h3 {
     top: -3px;
 }
 
-.subtext:before {
+.css-subtext:before {
     content: "";
     display: inline;
     width: 0;
