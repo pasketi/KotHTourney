@@ -245,8 +245,12 @@ class Tournament {
 		$string = "";
 		$string .= "<p class='css-share'>Share-link:</p> <p class='css-link'>http://url.fi/tournamentPage.php?id=".$this->id."</p>";
 		$string .= "<h1>".$this->name."</h1>";
+		$string .= '<form action="admin.php" method="get">
+					<input type="hidden" name="id" value="'.$this->id.'"\">
+					<input type="submit" value="Manage tournament">
+					</form>';
 		$string .= "<h3>Admin: ".$this->ownerName."</h3>";
-		$string .= "<h3>Admin contact: ".$this->ownerEmail."</h3>";
+		//$string .= "<h3>Admin contact: ".$this->ownerEmail."</h3>";
 		$string .= "<p>".$this->description."</p>";
 		$string .= "<h1>Reigning champion:</h1>";
 		if ($this->currentChampion == "") {
