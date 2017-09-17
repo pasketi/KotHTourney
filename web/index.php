@@ -29,13 +29,13 @@
 </head>
 <body>
   <h3>Get a tournament by ID</h3>
-  <form action="tournamentPage.php" method="post">
+  <form class="css-form-get-tournament" action="tournamentPage.php" method="post">
     ID: <input type="text" name="id" autofocus required><br />
     <input type="submit">
   </form>
   <br />
   <h3>Create a new tournament</h3>
-  <form action="index.php" method="post">
+  <form class="css-form-new-tournament" action="index.php" method="post">
     <label for="Tournament">
 	<span>Tournament name *:</span> <input type="text" name="newTournament" maxlength="20" required>
     </label>
