@@ -32,7 +32,7 @@
 	<form action="admin.php" method="post">
 		<input type="hidden" name="id" value="'.$_GET["id"].'">
 		password: <input type="password" name="passwd" autofocus><br />
-		<div class="g-recaptcha" data-sitekey="6LeHxi8UAAAAAL7017VTiam5iT8TJ47Tl9leOEnn"></div>
+		<div class="g-recaptcha" data-sitekey="6LeHxi8UAAAAAL7017VTiam5iT8TJ47Tl9leOEnn" data-theme="dark"></div>
 		<input type="submit">
 	</form>';
 	
@@ -45,8 +45,35 @@
 		<span>New password:</span> <input type="password" name="newPasswd"><br />
 		<span>New password again:</span> <input type="password" name="newPasswdCheck"><br />
 		<input type="submit">
-	</form>';
-		
+	</form>';	
+	
+	if ($_GET != null || $_POST != null) {
+		if ($_GET["id"] != null) {
+			if ($_GET["s"] != null && $_GET["s"] == "true") {
+				echo "Password change successful! Please login again with your new password.";
+			}
+			if ($currentTournament->IdExists($_GET["id"])) {
+				echo $passwordHTML;
+			} else {
+				echo "<h1>No such tournament</h1>";
+			}
+		} else if ($_POST["id"] != null && $_POST["passwd"] != null) {
+			$captcha = new ReCaptcha ();
+			if ($captcha->CheckValidity()) {
+				$_SESSION['id'] = $_POST['id'];
+				$_SESSION['passwd'] = $_POST['passwd'];
+				//header("Location: " . "http://" . $_SERVER['HTTP_HOST'] . $location);
+			} else {
+				echo "You didn't pass ReCaptcha. Go back and try again.";
+				header("Location: " . "http://" . $_SERVER['HTTP_HOST'] . $location."?id=".$_POST["id"]);
+			}
+		}
+	}
+	else if (!isset($_SESSION["id"]))
+	{
+		echo $tournamentIDHTML;
+	}
+	
 	if (isset($_SESSION["id"]) && isset($_SESSION["passwd"])) {
 		// Logout
 		if ($_POST["logout"] != null) {
@@ -122,7 +149,6 @@
 					Challenger - <input type="radio" name="winner" value="true"><br />
 					<input type="submit">
 				</form></p>';
-				
 				$setChampionForm = '<p><h3>Set a new champion</h3>
 				<form action="admin.php" method="post">
 					<span>Champion name:</span> <input type="text" name="champion" maxlength="20" autofocus><br />
@@ -162,35 +188,6 @@
 					unset($_SESSION["passwd"]);
 				}
 			}
-		}
-	}
-	else
-	{
-		if ($_GET != null || $_POST != null) {
-			if ($_GET["id"] != null) {
-				if ($_GET["s"] != null && $_GET["s"] == "true") {
-					echo "Password change successful! Please login again with your new password.";
-				}
-				if ($currentTournament->IdExists($_GET["id"])) {
-					echo $passwordHTML;
-				} else {
-					echo "<h1>No such tournament</h1>";
-				}
-			} else if ($_POST["id"] != null && $_POST["passwd"] != null) {
-				$captcha = new ReCaptcha ();
-				if ($captcha->CheckValidity()) {
-					$_SESSION['id'] = $_POST['id'];
-					$_SESSION['passwd'] = $_POST['passwd'];
-					header("Location: " . "http://" . $_SERVER['HTTP_HOST'] . $location);
-				} else {
-					echo "You didn't pass ReCaptcha. Go back and try again.";
-					header("Location: " . "http://" . $_SERVER['HTTP_HOST'] . $location."?id=".$_POST["id"]);
-				}
-			}
-		}
-		else
-		{
-			echo $tournamentIDHTML;
 		}
 	}
 ?>
