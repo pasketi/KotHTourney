@@ -18,8 +18,7 @@
  * 0 Imports
  * 1 Body & Text
  * 2 Form Styling
- * 3 Div Styling
- * 4 Tournament Page Styling
+ * 3 Tournament Page Styling
  */
 
 /* 0 Imports */
@@ -77,7 +76,7 @@ h1,h2,h3 {
     
 }
 
-input[type=text], input[type=email], input[type=password] {
+input[type=text], input[type=email], input[type=password], textarea {
     font-family: 'Maven Pro', sans-serif;
     border: 1px solid #0D3C47;
     border-radius: 0px;
@@ -93,7 +92,7 @@ label {
     position:relative;
 }
 
-input[type=text]:focus, input[type=email]:focus, input[type=password]:focus{
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus, textarea:focus{
    border: 1px solid #219AB6;
 }
 
@@ -116,13 +115,16 @@ input[type=submit]:hover {
     color:#0D3C47;
 }
 
+textarea {
+    width: 600px;
+    height: 300px;
+}
+
 input[name=newTournament] {
     
 }
 
-/* 3 Div Styling */
-
-/* 4 Tournament Page Styling */
+/* 3 Tournament Page Styling */
 
 .css-share {
     font-size: 80%;

@@ -8,6 +8,7 @@
   <meta name="description" content="KotH manager">
   <meta name="author" content="Panu 'Pasketi' Siitonen">
   <script src='https://www.google.com/recaptcha/api.js'></script>
+   <style><?php include "style.css";?></style>
 </head>
 <body>
 <?php
@@ -35,9 +36,9 @@
 	<form action="admin.php" method="post">
 		<input type="hidden" name="id" value="'.$_POST["id"].'">
 		<input type="hidden" name="passwd" value="'.$_POST["passwd"].'">
-		Current password: <input type="password" name="curPasswd"><br />
-		New password: <input type="password" name="newPasswd"><br />
-		New password again: <input type="password" name="newPasswdCheck"><br />
+		<span>Current password:</span> <input type="password" name="curPasswd"><br />
+		<span>New password:</span> <input type="password" name="newPasswd"><br />
+		<span>New password again:</span> <input type="password" name="newPasswdCheck"><br />
 		<input type="submit">
 	</form>';
 
@@ -125,7 +126,7 @@
 					<form action="admin.php" method="post">
 						<input type="hidden" name="id" value="'.$_POST["id"].'">
 						<input type="hidden" name="passwd" value="'.$_POST["passwd"].'">
-						Champion name: <input type="text" name="champion" maxlength="20" autofocus><br />
+						<span>Champion name:</span> <input type="text" name="champion" maxlength="20" autofocus><br />
 						<input type="submit">
 					</form></p>';
 					$setDescriptionForm = '<p><h3>Change the description of the tournament</h3>
