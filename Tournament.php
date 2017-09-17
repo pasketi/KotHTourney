@@ -255,12 +255,16 @@ class Tournament {
 			$string .= "<h2>".$this->currentChampion."</h2>";
 		}
 		$string .= "List of fallen foes<br /><ul>";
-		foreach ($this->destroyedOpponents as &$player) {
-			if ($player == $this->destroyedOpponents[0]) {
-				$string .= "<li><b>".$player."</b></li>";
-			} else {
-				$string .= "<li>".$player."</li>";
+		if (count($this->destroyedOpponents) > 0) {
+			foreach ($this->destroyedOpponents as &$player) {
+				if ($player == $this->destroyedOpponents[0]) {
+					$string .= "<li><b>".$player."</b></li>";
+				} else {
+					$string .= "<li>".$player."</li>";
+				}
 			}
+		} else {
+			$string .= "<li>The champion has not defeated anyone</li>";
 		}
 		$string .= "</ul><br />";
 		$string .= "Top streaks<br /><ul>";
