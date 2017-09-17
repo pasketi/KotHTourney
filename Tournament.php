@@ -242,14 +242,14 @@ class Tournament {
 	}
 
 	function GetTournamentHTML() {
-		$string = "";
+		$string = "<div class='css-div-tournament'>";
 		$string .= "<p class='css-share'>Share-link:</p> <p class='css-link'>http://url.fi/tournamentPage.php?id=".$this->id."</p>";
-		$string .= "<h1>".$this->name."</h1>";
+		$string .= "<div class='css-div-info'><h1>".$this->name."</h1>";
 		$string .= "<h3>Admin: ".$this->ownerName."</h3>";
 		$string .= "<h3>Admin contact: ".$this->ownerEmail."</h3>";
-		$string .= "<p>".$this->description."</p>";
-		$string .= "<h1>Reigning champion:</h1><h2>".$this->currentChampion."</h2>";
-		$string .= "List of fallen foes<br /><ul>";
+		$string .= "<p>".$this->description."</p></div>";
+		$string .= "<div class='css-div-champion'><h1>Reigning champion:</h1><h2>".$this->currentChampion."</h2></div>";
+		$string .= "<div class='css-div-contenders'>List of fallen foes<br /><ul>";
 		foreach ($this->destroyedOpponents as &$player) {
 			if ($player == $this->destroyedOpponents[0]) {
 				$string .= "<li><b>".$player."</b></li>";
@@ -257,12 +257,13 @@ class Tournament {
 				$string .= "<li>".$player."</li>";
 			}
 		}
-		$string .= "</ul><br />";
-		$string .= "Top streaks<br /><ul>";
+		$string .= "</ul><br /></div>";
+		$string .= "<div class='css-div-streaks'>Top streaks<br /><ul>";
 		foreach ($this->topStreaks as &$streak) {
 			$string .= "<li>".$streak->streak." -- ".$streak->name."</li>";
 		}
-		$string .= "</ul>";
+		$string .= "</ul></div>";
+		$string .= "</div>";
 		return $string;
 	}
 

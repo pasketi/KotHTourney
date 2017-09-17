@@ -70,13 +70,19 @@ h1,h2,h3 {
 .css-share {
     font-size: 80%;
     margin-bottom: 0px;
+    position: absolute;
+    top: -85px;
 }
 
 .css-link {
     color:#219AB6;
     border:2px solid #219AB6;
     padding: 5px 10px;
-    margin-top: 0px;
+    margin: 0px 0px;
+    white-space: nowrap;
+    display:inline-block;
+    position: absolute;
+    top: -50px;
 }
 
 /* 2 Form Styling */
@@ -135,3 +141,46 @@ input[name=newTournament] {
 /* 3 Div Styling */
 
 /* 4 Tournament Page Styling */
+
+.css-div-tournament{
+    display: grid;
+    padding: 10px 10px ;
+    border: 2px solid #0D3C47;
+    margin-top: 100px;
+    position: relative;
+    grid-template-columns: [first] 1fr [second] 1fr [third] 1fr [fourth] 1fr [fifth] 1fr [sixth];
+    grid-template-rows: [first] 300px [second] 1fr [third];
+}
+
+.css-div-info, .css-div-champion, .css-div-contenders, .css-div-streaks{
+    padding: 5px 5px ;
+    border: 2px hidden #0D3C47;
+}
+
+.css-div-info{
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+.css-div-champion{
+    grid-column-start: 4;
+    grid-column-end: 6;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+.css-div-contenders{
+    grid-column-start: 4;
+    grid-column-end: 5;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+.css-div-streaks{
+    grid-column-start: 5;
+    grid-column-end: 6;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
