@@ -87,7 +87,7 @@ h1,h2,h3 {
 
 /* 2 Form Styling */
 
-Form {
+.css-form-new-tournament, .css-form-get-tournament {
     
     border: 2px solid #0D3C47;
     border-radius: 8px;
