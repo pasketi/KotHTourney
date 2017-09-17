@@ -242,28 +242,52 @@ class Tournament {
 	}
 
 	function GetTournamentHTML() {
-		$string = "<div class='css-div-tournament'>";
+		$string = "";
 		$string .= "<p class='css-share'>Share-link:</p> <p class='css-link'>http://url.fi/tournamentPage.php?id=".$this->id."</p>";
-		$string .= "<div class='css-div-info'><h1>".$this->name."</h1>";
+		$string .= "<h1>".$this->name."</h1>";
+		$string .= '<form action="admin.php" method="get">
+					<input type="hidden" name="id" value="'.$this->id.'"\">
+					<input type="submit" value="Manage tournament">
+					</form>';
 		$string .= "<h3>Admin: ".$this->ownerName."</h3>";
-		$string .= "<h3>Admin contact: ".$this->ownerEmail."</h3>";
-		$string .= "<p>".$this->description."</p></div>";
-		$string .= "<div class='css-div-champion'><h1>Reigning champion:</h1><h2>".$this->currentChampion."</h2></div>";
-		$string .= "<div class='css-div-contenders'>List of fallen foes<br /><ul>";
-		foreach ($this->destroyedOpponents as &$player) {
-			if ($player == $this->destroyedOpponents[0]) {
-				$string .= "<li><b>".$player."</b></li>";
-			} else {
-				$string .= "<li>".$player."</li>";
+		//$string .= "<h3>Admin contact: ".$this->ownerEmail."</h3>";
+		$string .= "<p>".$this->description."</p>";
+		$string .= "<h1>Reigning champion:</h1>";
+		if ($this->currentChampion == "") {
+			$string .= "<h2>There is no champion, contact Admin if you wanna be the guy</h2>";
+		} else {
+			$string .= "<h2>".$this->currentChampion."</h2>";
+		}
+		$string .= "List of fallen foes<br /><ul>";
+		if (count($this->destroyedOpponents) > 0) {
+			foreach ($this->destroyedOpponents as &$player) {
+				if ($player == $this->destroyedOpponents[0]) {
+					$string .= "<li><b>".$player."</b></li>";
+				} else {
+					$string .= "<li>".$player."</li>";
+				}
+			}
+		} else {
+			$string .= "<li>The champion has not defeated anyone</li>";
+		}
+		$string .= "</ul><br />";
+		$string .= "Top streaks<br /><ul>";
+		$none = true;
+		foreach ($this->topStreaks as &$streak) {
+			if ($streak->streak == 0) {
+				continue;
+			}
+			else {
+				$string .= "<li>".$streak->streak." -- ".$streak->name."</li>";
+				if ($none) {
+					$none = false;
+				}
 			}
 		}
-		$string .= "</ul><br /></div>";
-		$string .= "<div class='css-div-streaks'>Top streaks<br /><ul>";
-		foreach ($this->topStreaks as &$streak) {
-			$string .= "<li>".$streak->streak." -- ".$streak->name."</li>";
+		if ($none) {
+			$string .= "<li>There are no streaks yet</li>";
 		}
-		$string .= "</ul></div>";
-		$string .= "</div>";
+		$string .= "</ul>";
 		return $string;
 	}
 
