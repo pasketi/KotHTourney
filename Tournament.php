@@ -259,13 +259,20 @@ class Tournament {
 		}
 		$string .= "</ul><br />";
 		$string .= "Top streaks<br /><ul>";
+		$none = true;
 		foreach ($this->topStreaks as &$streak) {
 			if ($streak->streak == 0) {
 				continue;
 			}
 			else {
 				$string .= "<li>".$streak->streak." -- ".$streak->name."</li>";
+				if ($none) {
+					$none = false;
+				}
 			}
+		}
+		if ($none) {
+			$string .= "<li>There are no streaks yet</li>";
 		}
 		$string .= "</ul>";
 		return $string;
