@@ -145,6 +145,7 @@
 					}
 					echo $setDescriptionForm;
 					echo $passwordChangeHTML;
+					echo $currentTournament->GetAdminTournamentHTML();
 				} else {
 					echo "<h1>Authentication failed</h1>";
 				}

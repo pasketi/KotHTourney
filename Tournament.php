@@ -290,6 +290,51 @@ class Tournament {
 		$string .= "</ul>";
 		return $string;
 	}
+	
+	function GetAdminTournamentHTML() {
+		$string = "";
+		$string .= "<h1>".$this->name."</h1>";
+		$string .= "<h3>Admin: ".$this->ownerName."</h3>";
+		$string .= "<h3>Admin contact: ".$this->ownerEmail."</h3>";
+		$string .= "<p>".$this->description."</p>";
+		$string .= "<h1>Reigning champion:</h1>";
+		if ($this->currentChampion == "") {
+			$string .= "<h2>There is no champion, contact Admin if you wanna be the guy</h2>";
+		} else {
+			$string .= "<h2>".$this->currentChampion."</h2>";
+		}
+		$string .= "List of fallen foes<br /><ul>";
+		if (count($this->destroyedOpponents) > 0) {
+			foreach ($this->destroyedOpponents as &$player) {
+				if ($player == $this->destroyedOpponents[0]) {
+					$string .= "<li><b>".$player."</b></li>";
+				} else {
+					$string .= "<li>".$player."</li>";
+				}
+			}
+		} else {
+			$string .= "<li>The champion has not defeated anyone</li>";
+		}
+		$string .= "</ul><br />";
+		$string .= "Top streaks<br /><ul>";
+		$none = true;
+		foreach ($this->topStreaks as &$streak) {
+			if ($streak->streak == 0) {
+				continue;
+			}
+			else {
+				$string .= "<li>".$streak->streak." -- ".$streak->name."</li>";
+				if ($none) {
+					$none = false;
+				}
+			}
+		}
+		if ($none) {
+			$string .= "<li>There are no streaks yet</li>";
+		}
+		$string .= "</ul>";
+		return $string;
+	}
 
 }
 
