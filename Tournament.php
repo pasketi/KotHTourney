@@ -305,7 +305,7 @@ class Tournament {
 		} else {
 			$string .= "<h1>".$this->currentChampion."</h1>";
 		}
-		$string .= "List of fallen foes<br /><ul>";
+		$string .= "List of fallen foes<br /><ul class='css-list-contenders'>";
 		if (count($this->destroyedOpponents) > 0) {
 			foreach ($this->destroyedOpponents as &$player) {
 				if ($player == $this->destroyedOpponents[0]) {
@@ -317,8 +317,8 @@ class Tournament {
 		} else {
 			$string .= "<p class='css-notification'>The champion has not defeated anyone</p>";
 		}
-		$string .= "</ul><br />";
-		$string .= "Top streaks<br /><ul>";
+		$string .= "</ul>";
+		$string .= "Top streaks<br /><ul class='css-list-streaks'>";
 		$none = true;
 		foreach ($this->topStreaks as &$streak) {
 			if ($streak->streak == 0) {

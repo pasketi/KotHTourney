@@ -8,6 +8,7 @@
   <meta name="description" content="KotH manager">
   <meta name="author" content="Panu 'Pasketi' Siitonen">
   <script src='https://www.google.com/recaptcha/api.js'></script>
+   <style><?php include "style.css";?></style>
 </head>
 <body>
 <?php
@@ -40,9 +41,9 @@
 	<form action="admin.php" method="post">
 		<input type="hidden" name="id" value="'.$_SESSION["id"].'">
 		<input type="hidden" name="passwd" value="'.$_SESSION["passwd"].'">
-		Current password: <input type="password" name="curPasswd"><br />
-		New password: <input type="password" name="newPasswd"><br />
-		New password again: <input type="password" name="newPasswdCheck"><br />
+		<span>Current password:</span> <input type="password" name="curPasswd"><br />
+		<span>New password:</span> <input type="password" name="newPasswd"><br />
+		<span>New password again:</span> <input type="password" name="newPasswdCheck"><br />
 		<input type="submit">
 	</form>';
 		
@@ -121,19 +122,23 @@
 					Challenger - <input type="radio" name="winner" value="true"><br />
 					<input type="submit">
 				</form></p>';
+				
 				$setChampionForm = '<p><h3>Set a new champion</h3>
 				<form action="admin.php" method="post">
-					Champion name: <input type="text" name="champion" maxlength="20" autofocus><br />
+					<span>Champion name:</span> <input type="text" name="champion" maxlength="20" autofocus><br />
 					<input type="submit">
 				</form></p>';
+				
 				$setDescriptionForm = '<p><h3>Change the description of the tournament</h3>
 				<form action="admin.php" method="post">
 					Description: </br><textarea name="description">'.$currentTournament->description.'</textarea><br />
 					<input type="submit">
 				</form></p>';
-				$logoutButton = '<form action="admin.php" method="post">
-				<input type="hidden" name="logout" value="true">
-				<input type="submit" value="Logout">
+				
+				$logoutButton = '
+				<form action="admin.php" method="post">
+					<input type="hidden" name="logout" value="true">
+					<input type="submit" value="Logout">
 				</form>';
 	
 				//SITE LOOKS LIKE THIS:
