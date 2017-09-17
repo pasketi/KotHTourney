@@ -248,7 +248,12 @@ class Tournament {
 		$string .= "<h3>Admin: ".$this->ownerName."</h3>";
 		$string .= "<h3>Admin contact: ".$this->ownerEmail."</h3>";
 		$string .= "<p>".$this->description."</p>";
-		$string .= "<h1>Reigning champion:</h1><h2>".$this->currentChampion."</h2>";
+		$string .= "<h1>Reigning champion:</h1>";
+		if ($this->currentChampion == "") {
+			$string .= "<h2>There is no champion, contact Admin if you wanna be the guy</h2>";
+		} else {
+			$string .= "<h2>".$this->currentChampion."</h2>";
+		}
 		$string .= "List of fallen foes<br /><ul>";
 		foreach ($this->destroyedOpponents as &$player) {
 			if ($player == $this->destroyedOpponents[0]) {
