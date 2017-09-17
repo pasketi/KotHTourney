@@ -2,7 +2,18 @@
 <?php 
 	include "../Tournament.php";
 	
-	session_start(['cookie_lifetime' => 600]);
+	$pageData = "";
+	
+	session_start();
+	
+	if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 60)) {
+		// last request was more than 30 minutes ago
+		session_unset();     // unset $_SESSION variable for the run-time 
+		session_destroy();   // destroy session data in storage
+		error_log ("---- Session Expired ----", 4);
+		$pageData .= "<h3>Session expired, log it again</h3>";
+	}
+	$_SESSION['LAST_ACTIVITY'] = time();
 	
 	$currentTournament = new Tournament();
 
@@ -35,8 +46,6 @@
 		<span>New password again:</span> <input type="password" name="newPasswdCheck"><br />
 		<input type="submit">
 	</form>';
-	
-	$pageData = "";
 	
 	if ($_GET != null || $_POST != null) {
 		if ($_GET["id"] != null) {
