@@ -67,24 +67,6 @@ h1,h2,h3 {
     top: 10px;
 }
 
-.css-share {
-    font-size: 80%;
-    margin-bottom: 0px;
-    position: absolute;
-    top: -85px;
-}
-
-.css-link {
-    color:#219AB6;
-    border:2px solid #219AB6;
-    padding: 5px 10px;
-    margin: 0px 0px;
-    white-space: nowrap;
-    display:inline-block;
-    position: absolute;
-    top: -50px;
-}
-
 /* 2 Form Styling */
 
 .css-form-new-tournament, .css-form-get-tournament {
@@ -142,10 +124,42 @@ input[name=newTournament] {
 
 /* 4 Tournament Page Styling */
 
+.css-share {
+    font-size: 80%;
+    margin-bottom: 0px;
+    position: absolute;
+    top: -85px;
+}
+
+.css-link {
+    color:#219AB6;
+    border:2px solid #219AB6;
+    padding: 5px 10px;
+    margin: 0px 0px;
+    white-space: nowrap;
+    display:inline-block;
+    position: absolute;
+    top: -50px;
+}
+
+.css-list-contenders, .css-list-streaks {
+    
+    list-style: none;
+    padding-left: 0;
+    
+}
+
+.css-notification {
+    color: grey;
+    list-style: none;
+    max-width: 250px;
+}
+
 .css-div-tournament{
     display: grid;
-    padding: 10px 10px ;
+    padding: 0px 0px ;
     border: 2px solid #0D3C47;
+    border-radius: 8px;
     margin-top: 100px;
     position: relative;
     grid-template-columns: [first] 1fr [second] 1fr [third] 1fr [fourth] 1fr [fifth] 1fr [sixth];
@@ -157,7 +171,15 @@ input[name=newTournament] {
     border: 2px hidden #0D3C47;
 }
 
+.css-form-manage {
+    position: absolute;
+    top: 4px;
+    left: 400px;
+}
+
 .css-div-info{
+    border-right: 2px solid #0D3C47;
+    padding: 0px 20px;
     grid-column-start: 1;
     grid-column-end: 4;
     grid-row-start: 1;
@@ -169,6 +191,9 @@ input[name=newTournament] {
     grid-column-end: 6;
     grid-row-start: 1;
     grid-row-end: 2;
+    justify-self: center;
+    align-self: center;
+    text-align: center;
 }
 
 .css-div-contenders{
@@ -176,6 +201,8 @@ input[name=newTournament] {
     grid-column-end: 5;
     grid-row-start: 2;
     grid-row-end: 3;
+    padding: 0px 30px;
+    border-right: 2px dashed #0D3C47;
 }
 
 .css-div-streaks{
@@ -183,4 +210,5 @@ input[name=newTournament] {
     grid-column-end: 6;
     grid-row-start: 2;
     grid-row-end: 3;
+    padding: 0px 30px;
 }
