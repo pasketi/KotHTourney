@@ -242,23 +242,23 @@ class Tournament {
 	}
 
 	function GetTournamentHTML() {
-		$string = "";
+		$string = "<div class='css-div-tournament'>";
 		$string .= "<p class='css-share'>Share-link:</p> <p class='css-link'>http://url.fi/tournamentPage.php?id=".$this->id."</p>";
-		$string .= "<h1>".$this->name."</h1>";
+		$string .= "<div class='css-div-info'><h1>".$this->name."</h1>";
 		$string .= '<form action="admin.php" method="get">
 					<input type="hidden" name="id" value="'.$this->id.'"\">
 					<input type="submit" value="Manage tournament">
 					</form>';
 		$string .= "<h3>Admin: ".$this->ownerName."</h3>";
 		//$string .= "<h3>Admin contact: ".$this->ownerEmail."</h3>";
-		$string .= "<p>".$this->description."</p>";
-		$string .= "<h1>Reigning champion:</h1>";
+		$string .= "<p>".$this->description."</p></div>"; // css-div-info
+		$string .= "<div class='css-div-champion'><h1>Reigning champion:</h1>";
 		if ($this->currentChampion == "") {
 			$string .= "<h2>There is no champion, contact Admin if you wanna be the guy</h2>";
 		} else {
-			$string .= "<h2>".$this->currentChampion."</h2>";
+			$string .= "<h2>".$this->currentChampion."</h2></div>"; // css-div-champion
 		}
-		$string .= "List of fallen foes<br /><ul>";
+		$string .= "<div class='css-div-contenders'>List of fallen foes<br /><ul>";
 		if (count($this->destroyedOpponents) > 0) {
 			foreach ($this->destroyedOpponents as &$player) {
 				if ($player == $this->destroyedOpponents[0]) {
@@ -270,8 +270,8 @@ class Tournament {
 		} else {
 			$string .= "<li>The champion has not defeated anyone</li>";
 		}
-		$string .= "</ul><br />";
-		$string .= "Top streaks<br /><ul>";
+		$string .= "</ul></div>"; // css-div-contenders
+		$string .= "<div class='css-div-streaks'>Top streaks<br /><ul>";
 		$none = true;
 		foreach ($this->topStreaks as &$streak) {
 			if ($streak->streak == 0) {
@@ -287,7 +287,8 @@ class Tournament {
 		if ($none) {
 			$string .= "<li>There are no streaks yet</li>";
 		}
-		$string .= "</ul>";
+		$string .= "</ul></div>"; // css-div-streaks
+		$string .= "</div>"; // css-div-tournament
 		return $string;
 	}
 
