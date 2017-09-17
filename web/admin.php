@@ -1,20 +1,9 @@
 <!doctype php>
-<?php include "../Tournament.php";?>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-
-  <title>King of the Hill</title>
-  <meta name="description" content="KotH manager">
-  <meta name="author" content="Panu 'Pasketi' Siitonen">
-  <script src='https://www.google.com/recaptcha/api.js'></script>
-   <style><?php include "style.css";?></style>
-</head>
-<body>
-<?php
-	session_start([
-		'cookie_lifetime' => 600,
-	]);
+<?php 
+	include "../Tournament.php";
+	
+	session_start(['cookie_lifetime' => 600]);
+	
 	$currentTournament = new Tournament();
 
 	$location = "/admin.php";
@@ -45,73 +34,72 @@
 		<span>New password:</span> <input type="password" name="newPasswd"><br />
 		<span>New password again:</span> <input type="password" name="newPasswdCheck"><br />
 		<input type="submit">
-	</form>';	
+	</form>';
+	
+	$pageData = "";
 	
 	if ($_GET != null || $_POST != null) {
 		if ($_GET["id"] != null) {
 			if ($_GET["s"] != null && $_GET["s"] == "true") {
-				echo "Password change successful! Please login again with your new password.";
+				$pageData .= "Password change successful! Please login again with your new password.";
 			}
 			if ($currentTournament->IdExists($_GET["id"])) {
-				echo $passwordHTML;
+				$pageData .= $passwordHTML;
 			} else {
-				echo "<h1>No such tournament</h1>";
+				$pageData .=  "<h1>No such tournament</h1>";
 			}
 		} else if ($_POST["id"] != null && $_POST["passwd"] != null) {
-			$captcha = new ReCaptcha ();
-			if ($captcha->CheckValidity()) {
-				$_SESSION['id'] = $_POST['id'];
-				$_SESSION['passwd'] = $_POST['passwd'];
-				//header("Location: " . "http://" . $_SERVER['HTTP_HOST'] . $location);
-			} else {
-				echo "You didn't pass ReCaptcha. Go back and try again.";
-				header("Location: " . "http://" . $_SERVER['HTTP_HOST'] . $location."?id=".$_POST["id"]);
+			if ($_SESSION["id"] == null){
+				$captcha = new ReCaptcha ();
+				if ($captcha->CheckValidity()) {
+					$_SESSION["id"] = $_POST["id"];
+					$_SESSION["passwd"] = $_POST["passwd"];
+				} else {
+					$pageData .= "You didn't pass ReCaptcha. Go back and try again.";
+					header('Refresh: 0; url=admin.php?id='.$_POST["id"]);
+				}
 			}
 		}
 	}
-	else if (!isset($_SESSION["id"]))
+	else
 	{
-		echo $tournamentIDHTML;
+		$pageData .= $tournamentIDHTML;
 	}
 	
 	if (isset($_SESSION["id"]) && isset($_SESSION["passwd"])) {
 		// Logout
 		if ($_POST["logout"] != null) {
-			if ($_POST["logout"] == true){
-				if (isset($_SESSION["id"])) {
-					unset($_SESSION["id"]);
-				}
-				if (isset($_SESSION["passwd"])) {
-					unset($_SESSION["passwd"]);
-				}
-				echo "<h2>Logout successful</h2>";
-				header("Location: " . "http://" . $_SERVER['HTTP_HOST'] . $location);
+			if ($_POST["logout"] == true) {
+				session_unset();
+				session_destroy();
+				$pageData .= "<h2>Logout successful</h2>";
+				header('Refresh: 3; url=admin.php');
 				return null;
 			}
 		}
 		
 		if ($currentTournament->IdExists($_SESSION["id"])) {
 			if ($currentTournament->checkAccessFor($_SESSION["id"], $_SESSION["passwd"]) == true) {
-				// Access granted
+				
+				// Access granted. load tournament
 				$currentTournament->LoadTournament($_SESSION["id"]);
+				
 				// Change Password
 				if ($_POST["curPasswd"] != null && $_POST["newPasswd"] != null && $_POST["newPasswdCheck"] != null) {
 					if ($_POST["curPasswd"] == $_POST["passwd"]) {
 						if ($_POST["newPasswd"] == $_POST["newPasswdCheck"]) {
 							$currentTournament->ChangePassword($_POST["curPasswd"], $_POST["newPasswd"]);
 							
-							echo '<form id="passwdChanger" action="admin.php" method="get">
-							<input type="hidden" name="s" value="true">
-							</form>
-							<script type="text/javascript">
-								document.getElementById("passwdChanger").submit();
-							</script>';
+							header('Refresh: 0; url=admin.php?id='.$_SESSION["id"]);
+							
+							session_unset();
+							session_destroy();
 							
 						} else {
-							echo "Check your passwords. Something wasn't quite right.<br />";
+							$pageData .= "Check your passwords. Something wasn't quite right.<br />";
 						}
 					} else {
-						echo "Check your passwords. Something wasn't quite right.<br />";
+						$pageData .= "Check your passwords. Something wasn't quite right.<br />";
 					}
 				}
 
@@ -168,28 +156,40 @@
 				</form>';
 	
 				//SITE LOOKS LIKE THIS:
-				echo "<h3>".$currentTournament->name." administrator panel</h3>";
+				$pageData .= "<h3>".$currentTournament->name." administrator panel</h3>";
 				if ($currentTournament->currentChampion != "") {
-					echo $addChallengerForm;
+					$pageData .= $addChallengerForm;
 				} else {
-					echo $setChampionForm;
+					$pageData .= $setChampionForm;
 				}
-				echo $setDescriptionForm;
-				echo $passwordChangeHTML;
-				echo $logoutButton;
-				echo $currentTournament->GetAdminTournamentHTML();
+				$pageData .= $setDescriptionForm;
+				$pageData .= $passwordChangeHTML;
+				$pageData .= $logoutButton;
+				$pageData .= $currentTournament->GetAdminTournamentHTML();
 			} else {
-				echo "<h1>Authentication failed</h1>";
-				if (isset($_SESSION["id"])) {
-					header("Location: " . "http://" . $_SERVER['HTTP_HOST'] . $location."?id=".$_SESSION["id"]);
-					unset($_SESSION["id"]);
-				}
-				if (isset($_SESSION["passwd"])) {
-					unset($_SESSION["passwd"]);
-				}
+				$pageData .= "<h1>Authentication failed</h1>";
+				session_unset();
+				session_destroy();
+				header('Refresh: 3; url=admin.php?id='.$_SESSION["id"]);
 			}
 		}
 	}
+?>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+
+  <title>King of the Hill</title>
+  <meta name="description" content="KotH manager">
+  <meta name="author" content="Panu 'Pasketi' Siitonen">
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+  <style><?php include "style.css";?></style>
+
+</head>
+<body>
+<?php
+	echo $pageData;
 ?>
 </body>
 </html>
