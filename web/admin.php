@@ -138,7 +138,7 @@
 				}
 
 				// Form variables
-				$addChallengerForm = '<p><h3>Report scores</h3>
+				$addChallengerForm = '<p>
 				<form action="admin.php" method="post">
 					Challenger: <input type="text" name="challenger" maxlength="20"><br />
 					Who won? <br />
@@ -146,17 +146,17 @@
 					Challenger - <input type="radio" name="winner" value="true"><br />
 					<input type="submit">
 				</form></p>';
-				$setChampionForm = '<p><h3>Set a new champion</h3>
+				$setChampionForm = '<p><b>Set a new champion</b><br />
 				<form action="admin.php" method="post">
 					<span>Champion name:</span> <input type="text" name="champion" maxlength="20" autofocus><br />
 					<input type="submit">
 				</form></p>';
 
-				$setDescriptionForm = '<p><h3>Change the description of the tournament</h3>
+				$setDescriptionForm = '
 				<form action="admin.php" method="post">
-					Description: </br><textarea name="description">'.$currentTournament->description.'</textarea><br />
+					</br><textarea name="description">'.$currentTournament->description.'</textarea><br />
 					<input type="submit">
-				</form></p>';
+				</form>';
 
 				$logoutButton = '
 				<form action="admin.php" method="post">
@@ -167,14 +167,11 @@
 				//SITE LOOKS LIKE THIS:
 				$pageData .= "<h3>".$currentTournament->name." administrator panel</h3>";
 				if ($currentTournament->currentChampion != "") {
-					$pageData .= $addChallengerForm;
+					$pageData .= $currentTournament->GetAdminTournamentHTML($setDescriptionForm, $addChallengerForm, $passwordChangeHTML, $logoutButton);
 				} else {
-					$pageData .= $setChampionForm;
+					$pageData .= $currentTournament->GetAdminTournamentHTML($setDescriptionForm, $setChampionForm, $passwordChangeHTML, $logoutButton);
 				}
-				$pageData .= $setDescriptionForm;
-				$pageData .= $passwordChangeHTML;
-				$pageData .= $logoutButton;
-				$pageData .= $currentTournament->GetAdminTournamentHTML();
+				
 			} else {
 				$pageData .= "<h1>Authentication failed</h1>";
 				$tempID = $_SESSION["id"];

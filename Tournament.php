@@ -293,19 +293,24 @@ class Tournament {
 		return $string;
 	}
 	
-	function GetAdminTournamentHTML() {
-		$string = "";
-		$string .= "<h1>".$this->name."</h1>";
+	function GetAdminTournamentHTML($descriptionHTML, $resultHTML, $passwordHTML, $logout) {
+		$string = "<div class='css-div-tournament'>";
+		$string .= "<p class='css-share'>Share-link:</p> <p class='css-link'>http://url.fi/tournamentPage.php?id=".$this->id."</p>";
+		$string .= "<div class='css-div-info'><h1>".$this->name."</h1>";
+		$string .= $logout;
 		$string .= "<h3>Admin: ".$this->ownerName."</h3>";
 		$string .= "<h3>Admin contact: ".$this->ownerEmail."</h3>";
-		$string .= "<p>".$this->description."</p>";
-		$string .= "<h2>Reigning champion:</h2>";
+		
+		$string .= "<p>".$descriptionHTML."</p>";
+		$string .= $passwordHTML."</div>"; // css-div-info
+		$string .= "<div class='css-div-champion'><h2>Reigning champion:</h2>";
 		if ($this->currentChampion == "") {
 			$string .= "<p class='css-notification'>There is no champion, contact Admin if you wanna be the guy</p>";
 		} else {
-			$string .= "<h1>".$this->currentChampion."</h1>";
+			$string .= "<h1>".$this->currentChampion."</h2>"; 
 		}
-		$string .= "List of fallen foes<br /><ul class='css-list-contenders'>";
+			$string .= "<p>".$resultHTML."</p></div>"; // css-div-champion
+		$string .= "<div class='css-div-contenders'>List of fallen foes<br /><ul class='css-list-contenders'>";
 		if (count($this->destroyedOpponents) > 0) {
 			foreach ($this->destroyedOpponents as &$player) {
 				if ($player == $this->destroyedOpponents[0]) {
@@ -317,8 +322,8 @@ class Tournament {
 		} else {
 			$string .= "<p class='css-notification'>The champion has not defeated anyone</p>";
 		}
-		$string .= "</ul>";
-		$string .= "Top streaks<br /><ul class='css-list-streaks'>";
+		$string .= "</ul></div>"; // css-div-contenders
+		$string .= "<div class='css-div-streaks'>Top streaks<br /><ul class='css-list-streaks'>";
 		$none = true;
 		foreach ($this->topStreaks as &$streak) {
 			if ($streak->streak == 0) {
@@ -334,7 +339,8 @@ class Tournament {
 		if ($none) {
 			$string .= "<p class='css-notification'>There are no streaks made by players</p>";
 		}
-		$string .= "</ul>";
+		$string .= "</ul></div>"; // css-div-streaks
+		$string .= "</div>"; // css-div-tournament
 		return $string;
 	}
 
