@@ -31,7 +31,7 @@
 		}
 	}
 	else if ($_POST != null) {
-		if ($_POST["id"] ?? null != null){
+		if ($_POST["id"] != null){
 			if ($currentTournament->IdExists($_POST["id"])) {
 				$currentTournament = $currentTournament->LoadTournament($_POST["id"]);
 				//echo "<h1>Tournament loaded</h1>";
@@ -46,8 +46,8 @@
 				echo "<h1>No such tournament</h1>";
 			}
 		}
-	
-		if ($_POST["newTournament"] ?? null != null) {
+
+		if ($_POST["newTournament"] != null) {
 			if ($_POST["newOwner"] != null && $_POST["newOwnerEmail"] != null) {
 				if ($_POST["ownId"] != null) {
 					$currentTournament = $currentTournament->NewTournament($_POST["newTournament"], $_POST["newOwner"], $_POST["newOwnerEmail"], $_POST["ownId"], $_POST["passwd"]);
@@ -62,7 +62,7 @@
 					}
 				}
 			}
-			else 
+			else
 			{
 				echo "No name and mail specified";
 			}
