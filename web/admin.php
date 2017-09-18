@@ -61,10 +61,12 @@
 				//$changesDone = 3;
 				$pageData .= "Password change successful! Please login again with your new password.";
 			}
-			if ($currentTournament->IdExists($_GET["id"])) {
+			if ($currentTournament->IdExists($_GET["id"]) && !isset($_SESSION["id"])) {
 				$pageData .= $passwordHTML;
 			} else {
-				$pageData .=  "<h1>No such tournament</h1>";
+				if (!isset($_SESSION["id"])) {
+					$pageData .=  "<h1>No such tournament</h1>";
+				}
 			}
 		} else if ($_POST["id"] != null && $_POST["passwd"] != null) {
 			if ($_SESSION["id"] == null){
@@ -88,11 +90,10 @@
 		// Logout
 		if ($_POST["logout"] != null) {
 			if ($_POST["logout"] == true) {
+				header('Refresh: 3; url=tournamentPage.php?id='.$_SESSION["id"]);
 				session_unset();
 				session_destroy();
 				$pageData .= "<h2>Logout successful</h2>";
-				header('Refresh: 3; url=admin.php');
-				return null;
 			}
 		}
 
