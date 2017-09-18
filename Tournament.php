@@ -132,6 +132,7 @@ class Tournament {
 	{
 		$this->description = $str;
 		$this->SaveTournament();
+		return "Description saved";
 	}
 
 	function ChangePassword ($currentPasswd, $newPasswd)
@@ -146,7 +147,7 @@ class Tournament {
 		if ($this->currentChampion == "" && $this->StringIsValid($newChamp)){
 			$this->currentChampion = $newChamp;
 			$this->SaveTournament();
-			echo "New champion set as ".$this->currentChampion;
+			return "New champion set as ".$this->currentChampion;
 		}
 	}
 
@@ -166,13 +167,14 @@ class Tournament {
 			}
 			$this->destroyedOpponents = array($this->currentChampion);
 			$this->currentChampion = $challengerName;
-			echo $this->destroyedOpponents[0]." has fallen with his streak of ".$currentStreak."! Long live new champion ".$this->currentChampion."!";
+			$this->SaveTournament();
+			return $this->destroyedOpponents[0]." has fallen with his streak of ".$currentStreak."! Long live new champion ".$this->currentChampion."!";
 		}
 		else {
 			array_push($this->destroyedOpponents, $challengerName);
-			echo $this->currentChampion." won ".$challengerName." and now has a streak of ".count($this->destroyedOpponents);
+			$this->SaveTournament();
+			return $this->currentChampion." won ".$challengerName." and now has a streak of ".count($this->destroyedOpponents);
 		}
-		$this->SaveTournament();
 	}
 
 	function GenerateRandomString () {

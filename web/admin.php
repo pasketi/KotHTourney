@@ -16,6 +16,14 @@
 	$_SESSION['LAST_ACTIVITY'] = time();
 
 	$currentTournament = new Tournament();
+	
+	// 0 = NONE
+	// 1 = CHALLENGER ADDED
+	// 2 = DESCRIPTION CHANGED
+	// 3 = PASSWORD CHANGED
+	$changesDone = 0;
+	$championString = "";
+	$descriptionString = "";
 
 	$location = "/admin.php";
 
@@ -35,9 +43,9 @@
 		<div class="g-recaptcha" data-sitekey="6LeHxi8UAAAAAL7017VTiam5iT8TJ47Tl9leOEnn" data-theme="dark"></div>
 		<input type="submit">
 	</form>';
-
+	
 	$passwordChangeHTML = '
-	<h3>Change your password</h3>
+	<h3>Change admin password</h3>
 	<form action="admin.php" method="post">
 		<input type="hidden" name="id" value="'.$_SESSION["id"].'">
 		<input type="hidden" name="passwd" value="'.$_SESSION["passwd"].'">
@@ -50,6 +58,7 @@
 	if ($_GET != null || $_POST != null) {
 		if ($_GET["id"] != null) {
 			if ($_GET["s"] != null && $_GET["s"] == "true") {
+				//$changesDone = 3;
 				$pageData .= "Password change successful! Please login again with your new password.";
 			}
 			if ($currentTournament->IdExists($_GET["id"])) {
@@ -116,7 +125,7 @@
 				if($_POST["champion"] != null && $currentTournament->currentChampion == "") {
 					$champ = $_POST["champion"];
 					if ($currentTournament->StringIsValid($champ)) {
-						$currentTournament->SetNewChampion($champ);
+						$championString = $currentTournament->SetNewChampion($champ);
 					}
 				}
 
@@ -128,34 +137,35 @@
 						if ($_POST["winner"] == "true") {
 							$win = true;
 						}
-						$currentTournament->EnterScores($chal, $win);
+						$championString = $currentTournament->EnterScores($chal, $win);
 					}
 				}
 
 				// Set a new tournament description
 				if ($_POST["description"] != null) {
-					$currentTournament->SetDescription($_POST["description"]);
+					$descriptionString = $currentTournament->SetDescription($_POST["description"]);
 				}
 
 				// Form variables
+
 				$addChallengerForm = '<p>
 				<form action="admin.php" method="post">
 					Challenger: <input type="text" name="challenger" maxlength="20"><br />
 					Who won? <br />
 					'.$currentTournament->currentChampion.' - <input type="radio" name="winner" value="false"><br />
 					Challenger - <input type="radio" name="winner" value="true"><br />
-					<input type="submit">
+					<input type="submit"><br />'.$championString.'
 				</form></p>';
 				$setChampionForm = '<p><b>Set a new champion</b><br />
 				<form action="admin.php" method="post">
 					<span>Champion name:</span> <input type="text" name="champion" maxlength="20" autofocus><br />
 					<input type="submit">
 				</form></p>';
-
+				
 				$setDescriptionForm = '
 				<form action="admin.php" method="post">
 					</br><textarea name="description">'.$currentTournament->description.'</textarea><br />
-					<input type="submit">
+					<input type="submit"><br />'.$descriptionString.'
 				</form>';
 
 				$logoutButton = '
@@ -167,9 +177,9 @@
 				//SITE LOOKS LIKE THIS:
 				$pageData .= "<h3>".$currentTournament->name." administrator panel</h3>";
 				if ($currentTournament->currentChampion != "") {
-					$pageData .= $currentTournament->GetAdminTournamentHTML($setDescriptionForm, $addChallengerForm, $passwordChangeHTML, $logoutButton);
+					$pageData .= $currentTournament->GetAdminTournamentHTML($setDescriptionForm, $addChallengerForm, $passwordChangeHTML, $logoutButton, $changesDone);
 				} else {
-					$pageData .= $currentTournament->GetAdminTournamentHTML($setDescriptionForm, $setChampionForm, $passwordChangeHTML, $logoutButton);
+					$pageData .= $currentTournament->GetAdminTournamentHTML($setDescriptionForm, $setChampionForm, $passwordChangeHTML, $logoutButton, $changesDone);
 				}
 				
 			} else {
