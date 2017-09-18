@@ -1,24 +1,24 @@
 <!doctype php>
-<?php 
+<?php
 	include "../Tournament.php";
-	
+
 	$pageData = "";
-	
+
 	session_start();
-	
+
 	if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 600)) {
 		// last request was more than 30 minutes ago
-		session_unset();     // unset $_SESSION variable for the run-time 
+		session_unset();     // unset $_SESSION variable for the run-time
 		session_destroy();   // destroy session data in storage
 		error_log ("---- Session Expired ----", 4);
 		$pageData .= "<h3>Session expired, log it again</h3>";
 	}
 	$_SESSION['LAST_ACTIVITY'] = time();
-	
+
 	$currentTournament = new Tournament();
 
 	$location = "/admin.php";
-	
+
 	$tournamentIDHTML = '
 	<h3>Enter tournament ID</h3>
 	<form action="admin.php" method="get">
@@ -35,7 +35,7 @@
 		<div class="g-recaptcha" data-sitekey="6LeHxi8UAAAAAL7017VTiam5iT8TJ47Tl9leOEnn" data-theme="dark"></div>
 		<input type="submit">
 	</form>';
-	
+
 	$passwordChangeHTML = '
 	<h3>Change your password</h3>
 	<form action="admin.php" method="post">
@@ -46,7 +46,7 @@
 		<span>New password again:</span> <input type="password" name="newPasswdCheck"><br />
 		<input type="submit">
 	</form>';
-	
+
 	if ($_GET != null || $_POST != null) {
 		if ($_GET["id"] != null) {
 			if ($_GET["s"] != null && $_GET["s"] == "true") {
@@ -74,7 +74,7 @@
 	{
 		$pageData .= $tournamentIDHTML;
 	}
-	
+
 	if (isset($_SESSION["id"]) && isset($_SESSION["passwd"])) {
 		// Logout
 		if ($_POST["logout"] != null) {
@@ -86,24 +86,24 @@
 				return null;
 			}
 		}
-		
+
 		if ($currentTournament->IdExists($_SESSION["id"])) {
 			if ($currentTournament->checkAccessFor($_SESSION["id"], $_SESSION["passwd"]) == true) {
-				
+
 				// Access granted. load tournament
 				$currentTournament->LoadTournament($_SESSION["id"]);
-				
+
 				// Change Password
 				if ($_POST["curPasswd"] != null && $_POST["newPasswd"] != null && $_POST["newPasswdCheck"] != null) {
 					if ($_POST["curPasswd"] == $_POST["passwd"]) {
 						if ($_POST["newPasswd"] == $_POST["newPasswdCheck"]) {
 							$currentTournament->ChangePassword($_POST["curPasswd"], $_POST["newPasswd"]);
-							
+
 							header('Refresh: 0; url=admin.php?id='.$_SESSION["id"]);
-							
+
 							session_unset();
 							session_destroy();
-							
+
 						} else {
 							$pageData .= "Check your passwords. Something wasn't quite right.<br />";
 						}
@@ -119,7 +119,7 @@
 						$currentTournament->SetNewChampion($champ);
 					}
 				}
-				
+
 				// Report a new result
 				if ($_POST["challenger"] != null && $_POST["winner"] != null) {
 					$chal = $_POST["challenger"];
@@ -131,12 +131,12 @@
 						$currentTournament->EnterScores($chal, $win);
 					}
 				}
-				
+
 				// Set a new tournament description
 				if ($_POST["description"] != null) {
 					$currentTournament->SetDescription($_POST["description"]);
 				}
-	
+
 				// Form variables
 				$addChallengerForm = '<p><h3>Report scores</h3>
 				<form action="admin.php" method="post">
@@ -151,19 +151,19 @@
 					<span>Champion name:</span> <input type="text" name="champion" maxlength="20" autofocus><br />
 					<input type="submit">
 				</form></p>';
-				
+
 				$setDescriptionForm = '<p><h3>Change the description of the tournament</h3>
 				<form action="admin.php" method="post">
 					Description: </br><textarea name="description">'.$currentTournament->description.'</textarea><br />
 					<input type="submit">
 				</form></p>';
-				
+
 				$logoutButton = '
 				<form action="admin.php" method="post">
 					<input type="hidden" name="logout" value="true">
 					<input type="submit" value="Logout">
 				</form>';
-	
+
 				//SITE LOOKS LIKE THIS:
 				$pageData .= "<h3>".$currentTournament->name." administrator panel</h3>";
 				if ($currentTournament->currentChampion != "") {
@@ -177,9 +177,10 @@
 				$pageData .= $currentTournament->GetAdminTournamentHTML();
 			} else {
 				$pageData .= "<h1>Authentication failed</h1>";
+				$tempID = $_SESSION["id"];
 				session_unset();
 				session_destroy();
-				header('Refresh: 3; url=admin.php?id='.$_SESSION["id"]);
+				header('Refresh: 3; url=admin.php?id='.$tempID);
 			}
 		}
 	}
