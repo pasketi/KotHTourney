@@ -37,16 +37,16 @@
   <h3>Create a new tournament</h3>
   <form class="css-form-new-tournament" action="index.php" method="post">
     <label for="Tournament">
-	<span>Tournament name *:</span> <input type="text" name="newTournament" maxlength="20" required>
+	<span>Tournament name *:</span> <input type="text" name="newTournament" maxlength="24" required>
     </label>
 	<label for="Name">
-	<span>Your name *:</span> <input type="text" name="newOwner" maxlength="20" required>
+	<span>Your name *:</span> <input type="text" name="newOwner" maxlength="24" required>
     </label>
 	<label for="Email">
 	<span>Your email *:</span> <input type="email" name="newOwnerEmail" required>
     </label>
 	<label for="TournamentID">
-	<span>Your personal tournament ID:</span> <input type="text" name="ownId" maxlength="20">
+	<span>Your personal tournament ID:</span> <input type="text" name="ownId" maxlength="24">
 	<sub class="css-subtext">You will find your tournament with an ID. If you leave the tournament<br/>ID empty, you will get a generated, unique 10 digit ID.</sub>
 	</label>
 	<label for="Password">

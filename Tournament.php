@@ -192,18 +192,18 @@ class Tournament {
 	}
 
 	function IdExists($newId) {
-		if (ctype_alnum($newId) && (strlen($newId) <= 20 && strlen($newId) >= 6)) {
+		if (ctype_alnum($newId) && (strlen($newId) <= 24 && strlen($newId) >= 6)) {
 			return file_exists("../tournaments/".$newId.".trnmt");
-		} else if (strlen($newId) > 20 || strlen($newId) < 6) {
+		} else if (strlen($newId) > 24 || strlen($newId) < 6) {
 			echo "YOUR ID SHOULD BE BETWEEN 6 AND 20 DIGITS<br />";
 		}
 		return false;
 	}
 
 	function StringIsValid ($str) {
-		if ((strlen($str) <= 20 && strlen($str) > 0)) {
+		if ((strlen($str) <= 24 && strlen($str) > 0)) {
 			return true;
-		} else if (strlen($str) > 20 || (strlen($str) <= 0)) {
+		} else if (strlen($str) > 24 || (strlen($str) <= 0)) {
 			echo "String ".$str." is not valid?";
 			return false;
 		}
@@ -212,6 +212,7 @@ class Tournament {
 	function SaveTournament () {
 		$json = json_encode($this);
 		$file = fopen("../tournaments/".$this->id.".trnmt", "w");
+		chmod("../tournaments/".$this->id.".trnmt", 0777);
 		fwrite($file, $json);
 		fclose($file);
 	}
@@ -245,7 +246,7 @@ class Tournament {
 
 	function GetTournamentHTML() {
 		$string = "<div class='css-div-tournament'>";
-		$string .= "<p class='css-share'>Share-link:</p> <p class='css-link'>http://url.fi/tournamentPage.php?id=".$this->id."</p>";
+		$string .= "<p class='css-share'>Share-link:</p> <p class='css-link'>http://deadbeef.dy.fi/tournamentPage.php?id=".$this->id."</p>";
 		$string .= "<div class='css-div-info'><h1>".$this->name."</h1>";
 		$string .= '<form class="css-form-manage" action="admin.php" method="get">
 					<input type="hidden" name="id" value="'.$this->id.'"\">
@@ -297,7 +298,7 @@ class Tournament {
 	
 	function GetAdminTournamentHTML($descriptionHTML, $resultHTML, $passwordHTML, $logout) {
 		$string = "<div class='css-div-tournament'>";
-		$string .= "<p class='css-share'>Share-link:</p> <p class='css-link'>http://url.fi/tournamentPage.php?id=".$this->id."</p>";
+		$string .= "<p class='css-share'>Share-link:</p> <p class='css-link'>http://deadbeef.dy.fi/tournamentPage.php?id=".$this->id."</p>";
 		$string .= "<div class='css-div-info'><h1>".$this->name."</h1>";
 		$string .= $logout;
 		$string .= "<h3>Admin: ".$this->ownerName."</h3>";

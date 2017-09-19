@@ -151,7 +151,7 @@
 
 				$addChallengerForm = '<p>
 				<form action="admin.php" method="post">
-					Challenger: <input type="text" name="challenger" maxlength="20"><br />
+					Challenger: <input type="text" name="challenger" maxlength="24"><br />
 					Who won? <br />
 					'.$currentTournament->currentChampion.' - <input type="radio" name="winner" value="false"><br />
 					Challenger - <input type="radio" name="winner" value="true"><br />
@@ -159,7 +159,7 @@
 				</form></p>';
 				$setChampionForm = '<p><b>Set a new champion</b><br />
 				<form action="admin.php" method="post">
-					<span>Champion name:</span> <input type="text" name="champion" maxlength="20" autofocus><br />
+					<span>Champion name:</span> <input type="text" name="champion" maxlength="24" autofocus><br />
 					<input type="submit">
 				</form></p>';
 				
