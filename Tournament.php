@@ -212,9 +212,9 @@ class Tournament {
 	function SaveTournament () {
 		$json = json_encode($this);
 		$file = fopen("../tournaments/".$this->id.".trnmt", "w");
-		chmod("../tournaments/".$this->id.".trnmt", 0777);
 		fwrite($file, $json);
 		fclose($file);
+		chmod("../tournaments/".$this->id.".trnmt", 0777);
 	}
 
 	function RefreshTournament () {
