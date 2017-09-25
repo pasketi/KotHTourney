@@ -193,24 +193,62 @@ input[name=newTournament] {
     grid-column-end: 6;
     grid-row-start: 1;
     grid-row-end: 2;
-    justify-self: center;
     align-self: center;
     text-align: center;
+    position: relative;
 }
 
-.css-div-contenders{
+.css-button-leaderboards-toggle{
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    color: #219AB6;
+    border-style: none;
+    background: none;
+}
+
+.css-button-leaderboards-toggle:hover{
+    cursor: pointer;
+    color: #96BAC3;
+}
+
+.css-button-leaderboards-toggle{
+    border-style: none;
+    background: none;
+}
+
+.css-button-leaderboards-toggle:focus, .css-button-leaderboards-toggle:active {
+    outline: 0;
+}
+
+.css-div-leaderboards{
+    /* height: 500px;*/
     grid-column-start: 4;
-    grid-column-end: 5;
-    grid-row-start: 2;
-    grid-row-end: 3;
-    padding: 0px 30px;
-    border-right: 2px dashed #0D3C47;
-}
-
-.css-div-streaks{
-    grid-column-start: 5;
     grid-column-end: 6;
     grid-row-start: 2;
     grid-row-end: 3;
-    padding: 0px 30px;
+    position: relative;
+    padding: 30px 30px 10px 30px;
+    border-top: 2px dashed #0D3C47;
+    white-space: nowrap;
+}
+
+.css-list-contenders{
+}
+
+#header-contenders {
+    display: inherit;
+}
+
+.css-player-name {
+    display: inline-block;
+    margin: 0;
+}
+
+.css-list-streaks{
+    display:none;
+}
+
+#header-streaks {
+    display:none;
 }

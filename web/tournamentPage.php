@@ -8,9 +8,13 @@
   <meta name="description" content="KotH manager">
   <meta name="author" content="Panu 'Pasketi' Siitonen">
 	<style><?php include "style.css";?></style>
+	<script src="https://use.fontawesome.com/554daba4f6.js"></script>
+	<script src="jquery-3.2.1.slim.js"></script>
+	<script src="functions.js"></script>
 </head>
 
 <body>
+	<div id="content"></div>
   <?php
 	$currentTournament = new Tournament();
 	if ($_GET != null) {

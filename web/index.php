@@ -9,6 +9,7 @@
   <meta name="author" content="Panu 'Pasketi' Siitonen">
   <script src='https://www.google.com/recaptcha/api.js'></script>
   <style><?php include "style.css";?></style>
+  <script src="https://use.fontawesome.com/554daba4f6.js"></script>
 <?php
 	if ($_POST != null) {
 		if ($_POST["passwd"] == $_POST["passwdCheck"]) {
@@ -30,7 +31,7 @@
 <body>
   <h3>Get a tournament by ID</h3>
   <form class="css-form-get-tournament" action="tournamentPage.php" method="post">
-    ID: <input type="text" name="id" autofocus required><br />
+    <input type="text" name="id" autofocus required> &nbsp<i class="fa fa-search" aria-hidden="true"></i> </br>
     <input type="submit">
   </form>
   <br />

@@ -203,6 +203,7 @@
   <meta name="author" content="Panu 'Pasketi' Siitonen">
   <script src='https://www.google.com/recaptcha/api.js'></script>
   <style><?php include "style.css";?></style>
+  <script src="https://use.fontawesome.com/554daba4f6.js"></script>
 
 </head>
 <body>
