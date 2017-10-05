@@ -17,8 +17,21 @@ function ReduceTitleWidth(id) {
 }
 
 $(function() {
- $(".css-button-leaderboards-toggle").on('click', function() {
+$('.css-button-leaderboards-toggle').click(function(){
+		var tab_id = $(this).attr('data-tab');
+
+		$('.css-button-leaderboards-toggle').removeClass('current');
+		$('.tab-content').removeClass('current');
+
+		$(this).addClass('current');
+		$("#"+tab_id).addClass('current');
+	})
+});
+
+/*$(function() {
+ $(".css-button-leaderboards-toggle").click(function() {
+    $(this).toggleClass('active');
     $('.css-list-streaks, #header-streaks').toggle();
     $('.css-list-contenders, #header-contenders').toggle();
     });
- });
+ });*/

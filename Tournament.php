@@ -263,8 +263,11 @@ class Tournament {
 		}
 			$string .= "</div>"; // css-div-champion
 			$string .= "<div class='css-div-leaderboards'>";
-			$string .= "<button class='css-button-leaderboards-toggle'><i class='fa fa-chevron-circle-left fa-3x'></i></button>";
-		$string .= "<h3 id='header-contenders'>List of fallen foes</h3> <ul class='css-list-contenders'>";
+			$string .= "<div id='div-leaderboards-buttons'>";
+			$string .= "<button class='css-button-leaderboards-toggle current' data-tab='tab-1'><i class='fa fa-square'></i></button>";
+			$string .= "<button class='css-button-leaderboards-toggle' data-tab='tab-2'><i class='fa fa-square'></i></button>";
+			$string .= "</div>";
+		$string .= "<div id='tab-1' class='tab-content current'><h3 id='header-contenders'>List of fallen foes</h3> <ul class='css-list-contenders'>";
 		
 		if (count($this->destroyedOpponents) > 0) {
 			foreach ($this->destroyedOpponents as &$player) {
@@ -277,8 +280,8 @@ class Tournament {
 		} else {
 			$string .= "<p class='css-notification'>The champion has not defeated anyone</p>";
 		}
-		$string .= "</ul>";
-		$string .= "<h3 id='header-streaks'>Top streaks</h3><ul class='css-list-streaks'>";
+		$string .= "</ul></div>"; // div #Contenders
+		$string .= "<div id='tab-2' class='tab-content'><h3 id='header-streaks'>Top streaks</h3><ul class='css-list-streaks'>";
 		$none = true;
 		foreach ($this->topStreaks as &$streak) {
 			if ($streak->streak == 0) {
@@ -294,7 +297,7 @@ class Tournament {
 		if ($none) {
 			$string .= "<p class='css-notification'>There are no streaks made by players</p>";
 		}
-		$string .= "</ul>";
+		$string .= "</ul></div>"; // div #Streaks
 		$string .= "</div>"; // css-div-leaderboards
 		$string .= "</div>"; // css-div-tournament
 		return $string;
