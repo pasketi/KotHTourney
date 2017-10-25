@@ -6,13 +6,23 @@ $("document").ready(function() {
 
 function ReduceTitleWidth(id) {
     var name = $(id);
-    if (name.text().length > 19) {
+    if (name.text().length > 10) {
         name.css("font-size", 24);
+       
+    }
+    
+    if (name.text().length > 13) {
+        name.css("font-size", 20);
+       
+    }
+    
+    if (name.text().length > 16) {
+        name.css("font-size", 16);
         
     }
     
     if (name.text().length > 22) {
-        name.css("font-size", 18);
+        name.css("font-size", 12);
     }
 }
 
@@ -25,6 +35,12 @@ $('.css-button-leaderboards-toggle').click(function(){
 
 		$(this).addClass('current');
 		$("#"+tab_id).addClass('current');
+	})
+});
+
+$(function() {
+$('.css-toggle-hover').hover(function(){
+    $(this).next().toggle();
 	})
 });
 

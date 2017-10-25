@@ -11,7 +11,7 @@
 		session_unset();     // unset $_SESSION variable for the run-time
 		session_destroy();   // destroy session data in storage
 		error_log ("---- Session Expired ----", 4);
-		$pageData .= "<h3>Session expired, log it again</h3>";
+		$pageData .= "<div class='css-alert-panel'><h3>Session expired, log it again</h3></div>";
 	}
 	$_SESSION['LAST_ACTIVITY'] = time();
 
@@ -31,28 +31,30 @@
 	<h3>Enter tournament ID</h3>
 	<form action="admin.php" method="get">
 		ID: <input type="text" name="id" autofocus><br />
-		<input type="submit">
+		<input class="css-button" type="submit">
 	</form>
 	';
 
 	$passwordHTML = '
+	<div class="css-login-panel">
 	<h3>Enter password for your tournament</h3>
 	<form action="admin.php" method="post">
 		<input type="hidden" name="id" value="'.$_GET["id"].'">
-		password: <input type="password" name="passwd" autofocus><br />
+		<input type="password" name="passwd" autofocus><br />
 		<div class="g-recaptcha" data-sitekey="6LeHxi8UAAAAAL7017VTiam5iT8TJ47Tl9leOEnn" data-theme="dark"></div>
-		<input type="submit">
-	</form>';
+		<input class="css-button" type="submit">
+	</form>
+	</div>';
 	
 	$passwordChangeHTML = '
 	<h3>Change admin password</h3>
 	<form action="admin.php" method="post">
 		<input type="hidden" name="id" value="'.$_SESSION["id"].'">
 		<input type="hidden" name="passwd" value="'.$_SESSION["passwd"].'">
-		<span>Current password:</span> <input type="password" name="curPasswd"><br />
-		<span>New password:</span> <input type="password" name="newPasswd"><br />
-		<span>New password again:</span> <input type="password" name="newPasswdCheck"><br />
-		<input type="submit">
+		<span>Current password</span> <input type="password" name="curPasswd"><br />
+		<span>New password</span> <input type="password" name="newPasswd"><br />
+		<span>New password again</span> <input type="password" name="newPasswdCheck"><br />
+		<input class="css-button" type="submit">
 	</form>';
 
 	if ($_GET != null || $_POST != null) {
@@ -65,7 +67,7 @@
 				$pageData .= $passwordHTML;
 			} else {
 				if (!isset($_SESSION["id"])) {
-					$pageData .=  "<h1>No such tournament</h1>";
+					$pageData .=  "<div class='css-alert-panel'><h1>No such tournament</h1></div>";
 				}
 			}
 		} else if ($_POST["id"] != null && $_POST["passwd"] != null) {
@@ -75,7 +77,7 @@
 					$_SESSION["id"] = $_POST["id"];
 					$_SESSION["passwd"] = $_POST["passwd"];
 				} else {
-					$pageData .= "You didn't pass ReCaptcha. Go back and try again.";
+					$pageData .= "<div class='css-alert-panel'>You didn't pass ReCaptcha. Go back and try again.</div>";
 					header('Refresh: 0; url=admin.php?id='.$_POST["id"]);
 				}
 			}
@@ -93,7 +95,7 @@
 				header('Refresh: 3; url=tournamentPage.php?id='.$_SESSION["id"]);
 				session_unset();
 				session_destroy();
-				$pageData .= "<h2>Logout successful</h2>";
+				$pageData .= "<div class='css-login-panel'><h2>Logout successful</h2></div>";
 			}
 		}
 
@@ -149,34 +151,36 @@
 
 				// Form variables
 
-				$addChallengerForm = '<p>
+				$addChallengerForm =
+				'<h3>Resolve a match</h3>
 				<form action="admin.php" method="post">
-					Challenger: <input type="text" name="challenger" maxlength="24"><br />
-					Who won? <br />
-					'.$currentTournament->currentChampion.' - <input type="radio" name="winner" value="false"><br />
-					Challenger - <input type="radio" name="winner" value="true"><br />
-					<input type="submit"><br />'.$championString.'
-				</form></p>';
-				$setChampionForm = '<p><b>Set a new champion</b><br />
+					<span>Challenger</span> <input type="text" name="challenger" maxlength="24"><br/>
+					<h4>Who won? </h4>
+					<input class="css-input-radio" type="radio" name="winner" value="false">'.$currentTournament->currentChampion.'<br />
+					<input class="css-input-radio" type="radio" name="winner" value="true">Challenger<br/>
+					<input class="css-button" type="submit">'.$championString.'
+				</form>';
+				$setChampionForm = '<h3>Set a new champion</h3>
 				<form action="admin.php" method="post">
-					<span>Champion name:</span> <input type="text" name="champion" maxlength="24" autofocus><br />
-					<input type="submit">
-				</form></p>';
+					<span>Champion name</span>
+					<input type="text" name="champion" maxlength="24" autofocus><br/>
+					<input class="css-button" type="submit">
+				</form>';
 				
-				$setDescriptionForm = '
-				<form action="admin.php" method="post">
-					</br><textarea name="description">'.$currentTournament->description.'</textarea><br />
-					<input type="submit"><br />'.$descriptionString.'
+				$setDescriptionForm =
+				'<form action="admin.php" method="post">
+					<textarea id="set-description" name="description">'.$currentTournament->description.'</textarea>
+					<input class="css-button" type="submit">'.$descriptionString.'
 				</form>';
 
-				$logoutButton = '
-				<form action="admin.php" method="post">
+				$logoutButton =
+				'<form id="top-panel-form" action="admin.php" method="post">
 					<input type="hidden" name="logout" value="true">
-					<input type="submit" value="Logout">
+					<button class="fa fa-sign-out fa-2x" aria-hidden="true" id="login-button" type="submit" value="Logout" alt="logout"></button>
 				</form>';
 
 				//SITE LOOKS LIKE THIS:
-				$pageData .= "<h3>".$currentTournament->name." administrator panel</h3>";
+				//$pageData .= "<h3>".$currentTournament->name." administrator panel</h3>";
 				if ($currentTournament->currentChampion != "") {
 					$pageData .= $currentTournament->GetAdminTournamentHTML($setDescriptionForm, $addChallengerForm, $passwordChangeHTML, $logoutButton, $changesDone);
 				} else {
@@ -204,6 +208,8 @@
   <script src='https://www.google.com/recaptcha/api.js'></script>
   <style><?php include "style.css";?></style>
   <script src="https://use.fontawesome.com/554daba4f6.js"></script>
+  <script src="jquery-3.2.1.slim.js"></script>
+  <script src="functions.js"></script>
 
 </head>
 <body>

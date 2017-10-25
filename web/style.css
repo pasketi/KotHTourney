@@ -7,8 +7,8 @@
 /*Color scheme:
  * #96BAC3 Very Light blue, text
  * #53B3C9 Highlight Blue, Highlight areas
- * #219AB6 Base color blue, Headers 
- * #0D3C47 Dark Blue 1 Form background
+ * #219AB6 Base color blue 
+ * #0D3C47 Dark Blue 1, Main color
  * #08252B Dark Blue 2 
  * #191919 Dark Grey, Site Background
 */
@@ -23,26 +23,141 @@
 
 /* 0 Imports */
 
-@import url('https://fonts.googleapis.com/css?family=Maven+Pro:700|Titillium+Web:300');
+/*@import url('https://fonts.googleapis.com/css?family=Maven+Pro:700|Titillium+Web:300');*/
+@import url('https://fonts.googleapis.com/css?family=PT+Sans|Press+Start+2P');
 
 /* 1 Body & Text */
 
+
+
 body {
-    background-color: #191919;
-    font-family: 'Titillium Web', sans-serif;
+   /* background-color: #1c1616; */
+    background-color: #1C1818;
+    font-family: 'PT Sans', sans-serif;
+    /*font-family: 'Titillium Web', sans-serif;*/
     color: #96BAC3;
-    margin: 50px auto;
-    width: 1000px;
+    font-size: 1.0em;
+    margin: 0;
+    margin-left: 350px;
+    margin-top: 55px;
+    
+  
 }
 
-h1,h2,h3 {
-    font-family: 'Maven Pro', sans-serif;
-    color: #219AB6;
+#content-wrapper {
+    display: grid;
+    grid-template-columns: [start] 100% [end];
+    grid-template-rows: [top] 195px [second] auto [bottom];  
+    height: calc(100vh - 55px);
+}
+
+#site-introduction {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    padding: 0 20px 20px 20px;
+    
+}
+
+.css-info-panel{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    padding: 0 20px 20px 20px;
+}
+
+
+body::-webkit-scrollbar {
+    width: 10px;
+}
+ 
+body::-webkit-scrollbar-track {
+    box-sizing: border-box;
+    margin-right: 20px;
+    border-top: 50px solid #3F3F3F;
+}
+ 
+body::-webkit-scrollbar-thumb {
+    background-color: #3F3F3F;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Press Start 2P', cursive;
+    color: #FFFFFF;
+    font-smooth: never;
+    -webkit-font-smoothing : none;
+ 
+}
+
+h1 {
+    margin-top: 0px;
+}
+
+h2 {
+    font-size: 0.9rem;
+}
+
+h3 {
+    font-size: 0.8rem;
+}
+
+h4 {
+    font-size: 0.6rem;
+}
+
+.css-toggle-hover:hover{
+ color: #FFFFFF;
+}
+
+
+.css-top-panel-header{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    margin: 0;
+}
+
+
+
+.css-top-panel{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0px;
+    height: 50px;
+    background-color: #3F3F3F;
+    border-bottom: 5px solid #1C1818;
+    border-left: none;
+    z-index: 1;
+}
+
+.css-link {
+    color:#219AB6;
+    background-color: #222222;
+    border:2px solid #96BAC3;
+    padding-top: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 28px;
+    margin-top: 5px;
+    margin-right: 5px;
+    white-space: nowrap;
+    float:right;
+}
+
+.css-link:before {
+    content: "Share-link: ";
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.5rem;
+    color: #FFFFFF;
 }
 
 .css-subtext {
-    display: inline-block;
-    color: #219AB6;
+    /*display: inline-block;*/
+    display: none;
+    color: #FFFFFF;
     max-width: 400px;
     white-space: nowrap;
     margin-left: 20px;
@@ -66,21 +181,134 @@ h1,h2,h3 {
     top: 10px;
 }
 
+.css-notification-text {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.6rem;
+    max-width: 200px;
+    text-align: center;
+    word-wrap: break-word;
+    white-space: normal;
+    margin: auto auto;
+    color: grey;
+    list-style: none;
+    line-height: 0.9rem;
+}
+
+.css-c-panel {
+    background-color: #3F3F3F;
+    width: 350px;
+    display: grid;
+    position: fixed;
+    height: 100%;
+    grid-template-columns: [start] 100% [end];
+    grid-template-rows: [top] 100px [second] 100px [third] 600px [fourth] auto [bottom];
+    left: 0;
+    top: 55px;
+}
+
+
+.css-description-panel-admin{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    display: grid;
+    grid-template-columns: [start] 50% [second] auto [third] 350px [end];
+    grid-template-rows: [top] 100px [second] 1fr [third] 1fr [fourth] 1fr [fifth] 1fr [sixth] 1fr [bottom];
+    overflow: hidden;
+}
+
+.css-description-admin {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 7;
+    height: 100%;
+}
+
+.css-description-admin form{
+    height: 100%;
+    margin: 0;
+    padding-left: 20px;
+}
+
+#set-description{
+    font-family: 'PT Sans', sans-serif;
+    font-size: 1.0rem;
+    background-color: #222222;
+    color: #96BAC3;
+    padding-right:30px;
+    resize: none;
+    width: 100%;
+    height: 90%;
+    border: 2px solid Transparent;
+}
+
+textarea::-webkit-scrollbar {
+    width: 10px;
+}
+ 
+textarea::-webkit-scrollbar-track {
+}
+ 
+textarea::-webkit-scrollbar-thumb {
+    background-color: #3F3F3F;
+}
+
+#css-challenger-admin {
+    padding-left:20px;
+    padding-top: 20px;
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 4;
+}
+
+#css-password-admin {
+    padding-left:20px;
+    padding-top: 20px;
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 4;
+    grid-row-end: 7;
+}
+
+.css-info-panel-admin{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    padding-left:20px;
+}
+
 /* 2 Form Styling */
 
-.css-form-new-tournament, .css-form-get-tournament {
-    
-    border: 2px solid #0D3C47;
-    border-radius: 8px;
-    padding: 20px 20px;
+#css-form-new-tournament, #css-form-get-tournament {
+    padding: 0px 20px;
     
 }
 
-input[type=text], input[type=email], input[type=password], textarea {
-    font-family: 'Maven Pro', sans-serif;
-    border: 1px solid #0D3C47;
+#css-form-get-tournament {
+    padding-top: 20px;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+    
+#css-form-new-tournament {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 5;
+}
+
+input[type=text], input[type=email], input[type=password] {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 1.0rem;
+    border: 2px solid #96BAC3;
     border-radius: 0px;
-    background-color: #0D3C47;
+    background-color: #222222;
     color: #219AB6;
     display: inline-block;
     margin-bottom: 20px;
@@ -93,56 +321,70 @@ label {
 }
 
 input[type=text]:focus, input[type=email]:focus, input[type=password]:focus, textarea:focus{
-   border: 1px solid #219AB6;
+   border: 2px solid #219AB6;
 }
 
 form span{
     display: block;
 }
 
-input[type=submit] {
-    font-family: 'Maven Pro', sans-serif;
-    border: 2px solid #53B3C9;
+
+
+.css-button {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.5rem;
+    border: 2px solid #96BAC3;
     border-radius: 0px;
-    background-color: #0D3C47;
-    color: #219AB6;
+    background-color: #222222;
+    color: #96BAC3;
     padding: 10px 20px 10px;
-    margin-top: 20px;
+    margin-top: 10px;
+    flex-direction: row;
 }
 
-input[type=submit]:hover {
-    background-color: #219AB6;
-    color:#0D3C47;
+.css-button:hover {
+    color:#219AB6;
+    border: 2px solid #219AB6;
+    cursor: pointer;
 }
 
-textarea {
-    width: 550px;
-    height: 300px;
+.css-button:focus {
+    outline: 0;
 }
 
-input[name=newTournament] {
-    
+#top-panel-toolbar {
+    float: right;
+    position: relative;
+}
+
+#top-panel-form{
+    margin: 0;
+    align-content: center;
+    height: 100%;
+    position: relative;
+}
+
+#login-button {
+    color: #96BAC3;
+    position: relative;
+    background: transparent;
+    border: none !important;
+    -webkit-transform: translate(0, -50%);
+    top: 50%;
+}
+
+#login-button:hover {
+    color: #219AB6;
+    cursor: pointer;
+}
+
+#login-button:focus {
+    outline: none;
 }
 
 /* 3 Tournament Page Styling */
 
-.css-share {
-    font-size: 80%;
-    margin-bottom: 0px;
-    position: absolute;
-    top: -85px;
-}
 
-.css-link {
-    color:#219AB6;
-    border:2px solid #219AB6;
-    padding: 5px 10px;
-    margin: 0px 0px;
-    white-space: nowrap;
-    display:inline-block;
-    position: absolute;
-    top: -50px;
-}
 
 .css-list-contenders, .css-list-streaks {
     
@@ -151,48 +393,29 @@ input[name=newTournament] {
     
 }
 
-.css-notification {
-    color: grey;
-    list-style: none;
-    max-width: 250px;
-}
-
-.css-div-tournament{
-    display: grid;
-    padding: 0px 0px ;
-    border: 2px solid #0D3C47;
-    border-radius: 8px;
-    margin-top: 100px;
-    position: relative;
-    grid-template-columns: [first] 1fr [second] 1fr [third] 1fr [fourth] 1fr [fifth] 1fr [sixth];
-    grid-template-rows: [first] 300px [second] 1fr [third];
-}
-
 .css-div-info, .css-div-champion, .css-div-contenders, .css-div-streaks{
     padding: 5px 5px ;
     border: 2px hidden #0D3C47;
 }
 
-.css-form-manage {
-    position: absolute;
-    top: 4px;
-    left: 400px;
-}
-
-.css-div-info{
-    border-right: 2px solid #0D3C47;
-    padding: 0px 20px;
+#css-div-leaderboards{
+    /* height: 500px;*/
     grid-column-start: 1;
-    grid-column-end: 4;
-    grid-row-start: 1;
-    grid-row-end: 3;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    position: relative;
+    padding: 0px 20px 10px 20px;
+    /*border-top: 5px solid #0D3C47;*/
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .css-div-champion{
-    grid-column-start: 4;
-    grid-column-end: 6;
+    grid-column-start: 1;
+    grid-column-end: 2;
     grid-row-start: 1;
-    grid-row-end: 2;
+    grid-row-end: 3;
     align-self: center;
     text-align: center;
     position: relative;
@@ -200,13 +423,13 @@ input[name=newTournament] {
 
 #div-leaderboards-buttons{
     position: absolute;
-    top: 25px;
-    right: 25px;
+    top: 12px;
+    right: 10px;
 }
 
 .css-button-leaderboards-toggle{
     padding-left: 2px;
-    color: #0D3C47;
+    color: #222222;
     border-style: none;
     background: none;
     transition: 0.3s;
@@ -214,28 +437,16 @@ input[name=newTournament] {
 
 .css-button-leaderboards-toggle:hover{
     cursor: pointer;
-    color: #96BAC3;
+    color: #219AB6;
 }
 
 .css-button-leaderboards-toggle.current{
     cursor: pointer;
-    color: #219AB6;
+    color: #96BAC3;
 }
 
 .css-button-leaderboards-toggle:focus, .css-button-leaderboards-toggle:active {
     outline: 0;
-}
-
-.css-div-leaderboards{
-    /* height: 500px;*/
-    grid-column-start: 4;
-    grid-column-end: 6;
-    grid-row-start: 2;
-    grid-row-end: 3;
-    position: relative;
-    padding: 30px 30px 10px 30px;
-    border-top: 2px dashed #0D3C47;
-    white-space: nowrap;
 }
 
 .tab-content {
@@ -249,4 +460,31 @@ input[name=newTournament] {
 .css-player-name {
     display: inline-block;
     margin: 0;
+}
+
+.css-login-panel{
+    position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    padding: 20px 20px;
+    background-color: 3F3F3F;
+}
+
+.css-alert-panel {
+    position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    top: 25%;
+    left: 50%;
+    color: red;
+}
+
+.css-input-radio {
+
+}
+
+.css-confirm-text {
+    color: green;
+    display: inline-block;
+    padding-left: 20px;
 }

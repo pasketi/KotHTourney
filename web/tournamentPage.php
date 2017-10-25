@@ -14,7 +14,6 @@
 </head>
 
 <body>
-	<div id="content"></div>
   <?php
 	$currentTournament = new Tournament();
 	if ($_GET != null) {

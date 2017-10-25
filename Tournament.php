@@ -132,7 +132,7 @@ class Tournament {
 	{
 		$this->description = $str;
 		$this->SaveTournament();
-		return "Description saved";
+		return "<h4 class='css-confirm-text'>Description saved!</h4>";
 	}
 
 	function ChangePassword ($currentPasswd, $newPasswd)
@@ -147,7 +147,7 @@ class Tournament {
 		if ($this->currentChampion == "" && $this->StringIsValid($newChamp)){
 			$this->currentChampion = $newChamp;
 			$this->SaveTournament();
-			return "New champion set as ".$this->currentChampion;
+			return "<h4 class='css-confirm-text'>New champion set as " .$this->currentChampion. "!</h4>";
 		}
 	}
 
@@ -168,12 +168,12 @@ class Tournament {
 			$this->destroyedOpponents = array($this->currentChampion);
 			$this->currentChampion = $challengerName;
 			$this->SaveTournament();
-			return $this->destroyedOpponents[0]." has fallen with his streak of ".$currentStreak."! Long live new champion ".$this->currentChampion."!";
+			return "<h4 class='css-confirm-text'>New Champion Set!</h4>";
 		}
 		else {
 			array_push($this->destroyedOpponents, $challengerName);
 			$this->SaveTournament();
-			return $this->currentChampion." won ".$challengerName." and now has a streak of ".count($this->destroyedOpponents);
+			return "<h4 class='css-confirm-text'>New streak count: ".count($this->destroyedOpponents). "</h4>";
 		}
 	}
 
@@ -245,24 +245,25 @@ class Tournament {
 	}
 
 	function GetTournamentHTML() {
-		$string = "<div class='css-div-tournament'>";
-		$string .= "<p class='css-share'>Share-link:</p> <p class='css-link'>http://deadbeef.dy.fi/tournamentPage.php?id=".$this->id."</p>";
-		$string .= "<div class='css-div-info'><h1>".$this->name."</h1>";
-		$string .= '<form class="css-form-manage" action="admin.php" method="get">
-					<input type="hidden" name="id" value="'.$this->id.'"\">
-					<input type="submit" value="Manage tournament">
-					</form>';
-		$string .= "<h3>Admin: ".$this->ownerName."</h3>";
-		//$string .= "<h3>Admin contact: ".$this->ownerEmail."</h3>";
-		$string .= "<p>".$this->description."</p></div>"; // css-div-info
+		$string = "<div class='css-top-panel'>";
+		$string .= "<div id='top-panel-toolbar'>";
+		$string .= '<form id="top-panel-form" action="admin.php" method="get">
+				<input type="hidden" name="id" value="'.$this->id.'"\">
+				<button class="fa fa-pencil fa-2x" id="login-button" type="submit" value="Manage tournament"></button>
+				</form>';
+		$string .= "</div>"; //#top-panel-toolbar
+		$string .= "<p class='css-link'>http://deadbeef.dy.fi/tournamentPage.php?id=".$this->id."</p>";
+		$string .= "</div>"; // css-top-panel
+		$string .= "<div class='css-c-panel'>";
+					
 		$string .= "<div class='css-div-champion'><h2>Reigning champion:</h2>";
 		if ($this->currentChampion == "") {
-			$string .= "<p class='css-notification'>There is no champion, contact Admin if you wanna be the guy</p>";
+			$string .= "<p class='css-notification-text'>There is no champion, contact Admin if you wanna be the guy</p>";
 		} else {
 			$string .= "<h1 class='css-champion-title'>".$this->currentChampion."</h1>"; 
 		}
 			$string .= "</div>"; // css-div-champion
-			$string .= "<div class='css-div-leaderboards'>";
+			$string .= "<div id='css-div-leaderboards'>";
 			$string .= "<div id='div-leaderboards-buttons'>";
 			$string .= "<button class='css-button-leaderboards-toggle current' data-tab='tab-1'><i class='fa fa-square'></i></button>";
 			$string .= "<button class='css-button-leaderboards-toggle' data-tab='tab-2'><i class='fa fa-square'></i></button>";
@@ -278,7 +279,7 @@ class Tournament {
 				}
 			}
 		} else {
-			$string .= "<p class='css-notification'>The champion has not defeated anyone</p>";
+			$string .= "<p class='css-notification-text'>The champion has not defeated anyone</p>";
 		}
 		$string .= "</ul></div>"; // div #Contenders
 		$string .= "<div id='tab-2' class='tab-content'><h3 id='header-streaks'>Top streaks</h3><ul class='css-list-streaks'>";
@@ -295,62 +296,92 @@ class Tournament {
 			}
 		}
 		if ($none) {
-			$string .= "<p class='css-notification'>There are no streaks made by players</p>";
+			$string .= "<p class='css-notification-text'>There are no streaks made by players</p>";
 		}
 		$string .= "</ul></div>"; // div #Streaks
 		$string .= "</div>"; // css-div-leaderboards
-		$string .= "</div>"; // css-div-tournament
+		$string .= "</div>"; // css-c-panel
+		$string .= "<div id='content-wrapper'>";
+		
+		$string .= "<div class='css-info-panel'>";
+		$string .= "<h1>".$this->name."</h1>";
+		$string .= "<h3>Admin: ".$this->ownerName."</h3>";
+		//$string .= "<h3>Admin contact: ".$this->ownerEmail."</h3>";
+		$string .= "<p>".$this->description."</p>";
+		$string .= "</div>"; // css-div-info
+		$string .= "</div>"; // #content-wrapper
 		return $string;
 	}
 	
 	function GetAdminTournamentHTML($descriptionHTML, $resultHTML, $passwordHTML, $logout) {
-		$string = "<div class='css-div-tournament'>";
-		$string .= "<p class='css-share'>Share-link:</p> <p class='css-link'>http://deadbeef.dy.fi/tournamentPage.php?id=".$this->id."</p>";
-		$string .= "<div class='css-div-info'><h1>".$this->name."</h1>";
+		$string = "<div class='css-top-panel'>";
+		$string .= "<h2 class='css-top-panel-header'>".$this->name." admin panel</h2>";
+		$string .= "<div id='top-panel-toolbar'>";
 		$string .= $logout;
-		$string .= "<h3>Admin: ".$this->ownerName."</h3>";
-		$string .= "<h3>Admin contact: ".$this->ownerEmail."</h3>";
+		$string .= "</div>"; //#top-panel-toolbar
+		$string .= "<p class='css-link'>http://deadbeef.dy.fi/tournamentPage.php?id=".$this->id."</p>";
+		$string .= "</div>"; // css-top-panel
+		$string .= "<div class='css-c-panel'>";
 		
-		$string .= "<p>".$descriptionHTML."</p>";
-		$string .= $passwordHTML."</div>"; // css-div-info
+		
 		$string .= "<div class='css-div-champion'><h2>Reigning champion:</h2>";
 		if ($this->currentChampion == "") {
-			$string .= "<p class='css-notification'>There is no champion, contact Admin if you wanna be the guy</p>";
+			$string .= "<p class='css-notification-text'>There is no current champion set.</p>";
 		} else {
 			$string .= "<h1 class='css-champion-title'>".$this->currentChampion."</h1>"; 
 		}
-			$string .= "<p>".$resultHTML."</p></div>"; // css-div-champion
-		$string .= "<h3 id='header-contenders'>List of fallen foes</h3> <ul class='css-list-contenders'>";
+			$string .= "</div>"; // css-div-champion
+			$string .= "<div id='css-div-leaderboards'>";
+			$string .= "<div id='div-leaderboards-buttons'>";
+			$string .= "<button class='css-button-leaderboards-toggle current' data-tab='tab-1'><i class='fa fa-square'></i></button>";
+			$string .= "<button class='css-button-leaderboards-toggle' data-tab='tab-2'><i class='fa fa-square'></i></button>";
+			$string .= "</div>";
+		$string .= "<div id='tab-1' class='tab-content current'><h3 id='header-contenders'>List of fallen foes</h3> <ul class='css-list-contenders'>";
+		
 		if (count($this->destroyedOpponents) > 0) {
 			foreach ($this->destroyedOpponents as &$player) {
 				if ($player == $this->destroyedOpponents[0]) {
-					$string .= "<li><b>".$player."</b></li>";
+					$string .= "<li><i class='fa fa-star'></i> &nbsp<p class='css-player-name'><b>".$player."</b></p></li>";
 				} else {
-					$string .= "<li>".$player."</li>";
+					$string .= "<li><i class='fa fa-user-o'></i> &nbsp<p class='css-player-name'>".$player."</p></li>";
 				}
 			}
 		} else {
-			$string .= "<p class='css-notification'>The champion has not defeated anyone</p>";
+			$string .= "<p class='css-notification-text'>The champion has not defeated anyone</p>";
 		}
-		$string .= "</ul>";
-		$string .= "<h3 id='header-streaks'>Top streaks</h3> <ul class='css-list-streaks'>";
+		$string .= "</ul></div>"; // div #Contenders
+		$string .= "<div id='tab-2' class='tab-content'><h3 id='header-streaks'>Top streaks</h3><ul class='css-list-streaks'>";
 		$none = true;
 		foreach ($this->topStreaks as &$streak) {
 			if ($streak->streak == 0) {
 				continue;
 			}
 			else {
-				$string .= "<li>".$streak->streak." -- ".$streak->name."</li>";
+				$string .= "<li>".$streak->streak." -- <p class='css-player-name'>".$streak->name."</p></li>";
 				if ($none) {
 					$none = false;
 				}
 			}
 		}
 		if ($none) {
-			$string .= "<p class='css-notification'>There are no streaks made by players</p>";
+			$string .= "<p class='css-notification-text'>There are no streaks made by players</p>";
 		}
-		$string .= "</ul>";
-		$string .= "</div>"; // css-div-tournament
+		$string .= "</ul></div>"; // div #Streaks
+		$string .= "</div>"; // css-div-leaderboards
+		$string .= "</div>"; // css-c-panel
+		$string .= "<div id='content-wrapper'>";
+		$string .= "<div class='css-description-panel-admin'>";
+		$string .= "<div class='css-info-panel-admin'><h1>".$this->name."</h1>";
+		$string .= "<h3>Admin: ".$this->ownerName."</h3>";
+		$string .= "<h3>Admin contact: ".$this->ownerEmail."</h3>";
+		$string .= "</div>"; // css-info-panel-admin
+		$string .= "<div class='css-description-admin'>";
+		$string .= "".$descriptionHTML."";
+		$string .= "</div>"; // css-description-admin
+		$string .= "<div id='css-challenger-admin'>".$resultHTML."</div>";
+		$string .= "<div id='css-password-admin'>".$passwordHTML."</div>";
+		$string .= "</div>"; // css-admin-description-panel
+		$string .= "</div>"; // #content-wrapper;
 		return $string;
 	}
 
